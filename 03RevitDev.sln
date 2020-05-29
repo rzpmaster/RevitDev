@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{E69D5B57-A180-4001-B750-96ADB4D8CF00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RvtSDK", "RvtSDK", "{E5F25660-4953-45BE-8723-FB1E282D9624}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Beginning", "Beginning", "{26A14E6E-C7A6-441C-88F9-E1685B8C7016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRoute", "RvtSDK\Beginning\AutoRoute\AutoRoute.csproj", "{16E15EF3-F3F8-4FDB-9352-CB30677267DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensibleStorageDemo", "RvtSDK\ExtensibleStorageDemo\ExtensibleStorageDemo.csproj", "{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetUtils", "Utils\DotNetUtils\DotNetUtils.csproj", "{1969BBE2-C087-4BC1-BBDC-938F10075608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitUtils", "Utils\RevitUtils\RevitUtils.csproj", "{AC158651-9027-43B9-AA0D-631F55E722F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16E15EF3-F3F8-4FDB-9352-CB30677267DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E15EF3-F3F8-4FDB-9352-CB30677267DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E15EF3-F3F8-4FDB-9352-CB30677267DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E15EF3-F3F8-4FDB-9352-CB30677267DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1969BBE2-C087-4BC1-BBDC-938F10075608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1969BBE2-C087-4BC1-BBDC-938F10075608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1969BBE2-C087-4BC1-BBDC-938F10075608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1969BBE2-C087-4BC1-BBDC-938F10075608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC158651-9027-43B9-AA0D-631F55E722F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC158651-9027-43B9-AA0D-631F55E722F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC158651-9027-43B9-AA0D-631F55E722F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC158651-9027-43B9-AA0D-631F55E722F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26A14E6E-C7A6-441C-88F9-E1685B8C7016} = {E5F25660-4953-45BE-8723-FB1E282D9624}
+		{16E15EF3-F3F8-4FDB-9352-CB30677267DA} = {26A14E6E-C7A6-441C-88F9-E1685B8C7016}
+		{F9B00633-6AA9-47A6-ACEA-7F74407B9EA4} = {E5F25660-4953-45BE-8723-FB1E282D9624}
+		{1969BBE2-C087-4BC1-BBDC-938F10075608} = {E69D5B57-A180-4001-B750-96ADB4D8CF00}
+		{AC158651-9027-43B9-AA0D-631F55E722F8} = {E69D5B57-A180-4001-B750-96ADB4D8CF00}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
+	EndGlobalSection
+EndGlobal
