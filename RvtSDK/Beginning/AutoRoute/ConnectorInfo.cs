@@ -33,6 +33,13 @@ namespace AutoRoute
         {
         }
 
+        public ConnectorInfo(Connector connector)
+        {
+            m_owner = connector.Owner;
+            m_origin = connector.Origin;
+            m_connector = connector;
+        }
+
         public static Connector GetConnector(Element owner, XYZ connectorOrigin)
         {
             ConnectorSet connectors = GetConnectors(owner);

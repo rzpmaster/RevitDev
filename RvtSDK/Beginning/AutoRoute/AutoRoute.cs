@@ -17,16 +17,29 @@ namespace AutoRoute
     {
         Document m_document;
 
+        /// <summary>
+        /// The mechanical system that will be created
+        /// 机械系统，包含主机械设备，和其他元素，通常在rvt中用一种颜色表示
+        /// </summary>
         MechanicalSystem m_mechanicalSystem;
-        ElementId m_mechanicalSystemId;
-        DuctType m_ductType;
+        /// <summary>
+        /// The system type id of the duct
+        /// 过滤 复制 修改，例如：送风系统
+        /// </summary>
+        ElementId m_systemTypeId;
+        /// <summary>
+        /// The type of the ducts in the system
+        /// 过滤 复制 修改，例如：半径弯头/T 形三通
+        /// </summary>
         ElementId m_ductTypeId;
+
+        DuctType m_ductType;
         Level m_level;
 
         /// <summary>
         /// 一个管件的最小长度
         /// </summary>
-        const double min1FittingLength = 1;
+        const double min1FittingLength = 5;
 
         /// <summary>
         /// 风管的最小长度
@@ -34,7 +47,7 @@ namespace AutoRoute
         const double minDuctLength = 0.5;
 
         /// <summary>
-        /// 连接件的垂直偏移量
+        /// 垂直偏移量
         /// </summary>
         const double verticalTrunkOffset = 15;
 
@@ -56,8 +69,8 @@ namespace AutoRoute
         public AutoRoute(Document document)
         {
             this.m_document = document;
-            this.m_ductTypeId = new ElementId(-1);
-            this.m_mechanicalSystemId = ElementId.InvalidElementId;
+            this.m_ductTypeId = new ElementId(142431); //半径弯头/T 形三通
+            this.m_systemTypeId = ElementId.InvalidElementId;
         }
 
         public Result Run()
@@ -72,7 +85,7 @@ namespace AutoRoute
             TextWriterTraceListener listener = new TextWriterTraceListener(outputFileName);
             Trace.Listeners.Add(listener);
 
-            // 回风系统
+            //
             ElementClassFilter systemTypeFilter = new ElementClassFilter(typeof(MEPSystemType));
             FilteredElementCollector C = new FilteredElementCollector(m_document);
             C.WherePasses(systemTypeFilter);
@@ -80,7 +93,7 @@ namespace AutoRoute
             {
                 if (type.SystemClassification == MEPSystemClassification.SupplyAir)
                 {
-                    m_mechanicalSystemId = type.Id;
+                    m_systemTypeId = type.Id; //送风系统
                     break;
                 }
             }
@@ -95,9 +108,9 @@ namespace AutoRoute
 
                 //Element
                 List<Autodesk.Revit.DB.ElementId> ids = new List<ElementId>();
-                ids.Add(new ElementId(378728));
-                ids.Add(new ElementId(378707));
-                ids.Add(new ElementId(378716));
+                ids.Add(new ElementId(730127)); //baseEquipment
+                ids.Add(new ElementId(730237));
+                ids.Add(new ElementId(730244));
 
                 //Init Elements Info
                 FamilyInstance[] instances = new FamilyInstance[3];
@@ -124,14 +137,31 @@ namespace AutoRoute
                 //the first element is base equipment
                 var baseEquipment = instances[0];
                 csi = ConnectorInfo.GetConnectors(baseEquipment).ForwardIterator();
-                while (true)
+                while (csi.MoveNext())
                 {
                     Connector conn = csi.Current as Connector;
-                    if (conn.Direction == FlowDirectionType.Out && conn.DuctSystemType == DuctSystemType.SupplyAir)
+                    if (conn.Domain == Domain.DomainHvac ||
+                        conn.Domain == Domain.DomainPiping)
                     {
-                        conns[0] = conn;
-                        break;
+                        //conn.Direction 只有DomainHvac和DomainPiping有
+                        if (conn.Direction == FlowDirectionType.Out)
+                        {
+                            DuctSystemType ductSystemType = DuctSystemType.UndefinedSystemType;
+                            try
+                            {
+                                //DuctSystemType PipeSystemType ElectricalSystemType
+                                //每个连接件只有上述三个中的一个，调用其他时回报异常
+                                ductSystemType = conn.DuctSystemType;
+                            }
+                            catch { continue; }
+                            if (ductSystemType == DuctSystemType.SupplyAir)
+                            {
+                                conns[0] = conn;
+                                break;
+                            }
+                        }
                     }
+
                 }
 
                 //mechanicalSystem
@@ -161,8 +191,10 @@ namespace AutoRoute
                 //ductType
                 m_ductType = m_document.GetElement(m_ductTypeId) as DuctType;
 
-                //
                 List<XYZ> points = new List<XYZ>();
+
+                //conn[0]相关点
+                #region conn[0]
                 XYZ connectorDirection = conns[0].CoordinateSystem.BasisZ;
                 if (0 == connectorDirection.DistanceTo(new XYZ(-1, 0, 0)))
                 {
@@ -187,28 +219,32 @@ namespace AutoRoute
                     points.Add(new XYZ(conns[0].Origin.X, conns[0].Origin.Y + min1FittingLength, conns[0].Origin.Z));
                     points.Add(new XYZ(conns[0].Origin.X, conns[0].Origin.Y + min2FittingsLength, conns[0].Origin.Z + min1FittingLength));
                     points.Add(new XYZ(conns[0].Origin.X, conns[0].Origin.Y + min2FittingsLength, maxZ + verticalTrunkOffset - min1FittingLength));
-                }
+                } 
+                #endregion
 
-
+                //开始创建风管
                 List<Duct> ducts = new List<Duct>();
                 List<Connector> connectors = new List<Connector>();
                 List<Connector> baseConnectors = new List<Connector>();
 
                 ducts.Add(Duct.Create(m_document, m_ductTypeId, m_level.Id, conns[0], points[0]));
-                ducts.Add(Duct.Create(m_document, m_mechanicalSystem.Id, m_ductTypeId, m_level.Id, points[1], points[2]));
+                ducts.Add(Duct.Create(m_document, m_systemTypeId, m_ductTypeId, m_level.Id, points[1], points[2]));
 
                 connectors.Add(ConnectorInfo.GetConnector(ducts[0], points[0]));
                 connectors.Add(ConnectorInfo.GetConnector(ducts[1], points[1]));
                 connectors.Add(ConnectorInfo.GetConnector(ducts[1], points[2]));
-                connectors[0].ConnectTo(connectors[1]);
 
+                //连接管道，二选一，效果是一样的
+                //connectors[0].ConnectTo(connectors[1]);
                 m_document.Create.NewElbowFitting(connectors[0], connectors[1]);
+
                 baseConnectors.Add(connectors[2]);
 
                 //Create the vertical ducts for terminals
                 points.Clear();
                 ducts.Clear();
 
+                //conn[1] conn[2] 相关点
                 points.Add(new XYZ(conns[1].Origin.X, conns[1].Origin.Y, maxZ + verticalTrunkOffset - min1FittingLength));
                 points.Add(new XYZ(conns[2].Origin.X, conns[2].Origin.Y, maxZ + verticalTrunkOffset - min1FittingLength));
 
@@ -217,16 +253,17 @@ namespace AutoRoute
                 baseConnectors.Add(ConnectorInfo.GetConnector(ducts[0], points[0]));
                 baseConnectors.Add(ConnectorInfo.GetConnector(ducts[1], points[1]));
 
-                //
-                SortConnectorsByX(baseConnectors);
-                for (int i = 0; i < baseYValues.Length; ++i)
-                {
-                    if (ConnectSystemOnXAxis(baseConnectors, baseYValues[i]))
-                    {
-                        LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
-                        return Autodesk.Revit.UI.Result.Succeeded;
-                    }
-                }
+
+                ////最顶部的 baseConnectors 相关
+                //SortConnectorsByX(baseConnectors);
+                //for (int i = 0; i < baseYValues.Length; ++i)
+                //{
+                //    if (ConnectSystemOnXAxis(baseConnectors, baseYValues[i]))
+                //    {
+                //        LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
+                //        return Autodesk.Revit.UI.Result.Succeeded;
+                //    }
+                //}
 
                 SortConnectorsByY(baseConnectors);
                 for (int i = 0; i < baseXValues.Length; ++i)
@@ -234,29 +271,37 @@ namespace AutoRoute
                     if (ConnectSystemOnYAxis(baseConnectors, baseXValues[i]))
                     {
                         LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
+
+                        transaction.Commit();
                         return Autodesk.Revit.UI.Result.Succeeded;
                     }
                 }
 
 
-                //如果任然无法连接，把干管放到maxbbox外
-                SortConnectorsByX(baseConnectors);
-                if (ConnectSystemOnXAxis(baseConnectors, maxY + horizontalOptionalTrunkOffset))
-                {
-                    LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
-                    return Autodesk.Revit.UI.Result.Succeeded;
-                }
+                ////如果任然无法连接，把干管放到maxbbox外
+                //SortConnectorsByX(baseConnectors);
+                //if (ConnectSystemOnXAxis(baseConnectors, maxY + horizontalOptionalTrunkOffset))
+                //{
+                //    LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
+                //    return Autodesk.Revit.UI.Result.Succeeded;
+                //}
 
-                SortConnectorsByY(baseConnectors);
-                if (ConnectSystemOnYAxis(baseConnectors, maxX + horizontalOptionalTrunkOffset))
-                {
-                    LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
-                    return Autodesk.Revit.UI.Result.Succeeded;
-                }
+                //SortConnectorsByY(baseConnectors);
+                //if (ConnectSystemOnYAxis(baseConnectors, maxX + horizontalOptionalTrunkOffset))
+                //{
+                //    LogUtility.WriteMechanicalSystem(m_mechanicalSystem);
+                //    return Autodesk.Revit.UI.Result.Succeeded;
+                //}
 
 
-                //
-
+                ////如果任然无法连接，随便连一个，让revit报错吧
+                //connectors.Clear();
+                //SortConnectorsByX(baseConnectors);
+                //connectors.AddRange(CreateDuct(new XYZ(baseConnectors[0].Origin.X + min1FittingLength, baseYValues[0], maxZ + verticalTrunkOffset), new XYZ(baseConnectors[1].Origin.X - min1FittingLength, baseYValues[0], maxZ + verticalTrunkOffset)));
+                //connectors.AddRange(CreateDuct(new XYZ(baseConnectors[1].Origin.X + min1FittingLength, baseYValues[0], maxZ + verticalTrunkOffset), new XYZ(baseConnectors[2].Origin.X - min1FittingLength, baseYValues[0], maxZ + verticalTrunkOffset)));
+                //ConnectWithElbowFittingOnXAxis(baseConnectors[0], connectors[0]);
+                //ConnectWithElbowFittingOnXAxis(baseConnectors[2], connectors[3]);
+                //ConnectWithTeeFittingOnXAxis(baseConnectors[1], connectors[1], connectors[2], false);
             }
             catch (Exception ex)
             {
@@ -272,7 +317,7 @@ namespace AutoRoute
                 Trace.Listeners.Remove(listener);
             }
 
-            transaction.Commit();
+            transaction.RollBack();
             return Result.Succeeded;
         }
 
@@ -381,9 +426,9 @@ namespace AutoRoute
             if (Math.Abs(baseConn.Origin.X - baseX) > min1Duct2FittingsLength)
             {
                 connectors.AddRange(CreateDuct(new XYZ(baseConn.Origin.X - Math.Sign(baseConn.Origin.X - baseX), baseConn.Origin.Y, baseZ), new XYZ(baseX + Math.Sign(baseConn.Origin.X - baseX), baseConn.Origin.Y, baseZ)));
-                connectors[0].ConnectTo(baseConn);
+                //connectors[0].ConnectTo(baseConn);
                 m_document.Create.NewElbowFitting(connectors[0], baseConn);
-                connectors[1].ConnectTo(conn);
+                //connectors[1].ConnectTo(conn);
                 m_document.Create.NewElbowFitting(connectors[1], conn);
             }
             //If the distance of the two connectors on the X axis is less than 2, connect them with an elbow fitting
@@ -439,12 +484,17 @@ namespace AutoRoute
                 if (Math.Abs(baseConn.Origin.X - baseX) > min1Duct2FittingsLength)
                 {
                     connectors.AddRange(CreateDuct(new XYZ(baseConn.Origin.X - Math.Sign(baseConn.Origin.X - baseX), baseConn.Origin.Y, baseZ), new XYZ(baseX + Math.Sign(baseConn.Origin.X - baseX), baseConn.Origin.Y, baseZ)));
-                    baseConn.ConnectTo(connectors[0]);
+
+                    //这里连接依次就可以了，两次都连接有可能导致立管的位置不是竖直的
+                    //baseConn.ConnectTo(connectors[0]);
                     m_document.Create.NewElbowFitting(connectors[0], baseConn);
 
-                    connectors[1].ConnectTo(conn2);
-                    connectors[1].ConnectTo(conn3);
-                    conn2.ConnectTo(conn3);
+                    //三通只能通过Create创建，上面注释的无效
+                    //connectors[1].ConnectTo(conn2);
+                    //connectors[1].ConnectTo(conn3);
+                    //conn2.ConnectTo(conn3);
+                    //注意参数，第一个和第二个必须在一条直线上
+                    //三通有方向，但是目前这个方法还不直到方向如何定义
                     m_document.Create.NewTeeFitting(conn2, conn3, connectors[1]);
                 }
                 else
@@ -643,7 +693,7 @@ namespace AutoRoute
         {
             List<Connector> connectors = new List<Connector>();
 
-            Duct duct = Duct.Create(m_document, m_mechanicalSystem.Id, m_ductTypeId, m_level.Id, point1, point2);
+            Duct duct = Duct.Create(m_document, m_systemTypeId, m_ductTypeId, m_level.Id, point1, point2);
 
             connectors.Add(ConnectorInfo.GetConnector(duct, point1));
             connectors.Add(ConnectorInfo.GetConnector(duct, point2));
