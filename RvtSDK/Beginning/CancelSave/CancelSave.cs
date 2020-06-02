@@ -27,6 +27,7 @@ namespace CancelSave
             //注销事件
             application.ControlledApplication.DocumentOpened -= new EventHandler<DocumentOpenedEventArgs>(ReservePojectOriginalStatus);
             application.ControlledApplication.DocumentCreated -= new EventHandler<DocumentCreatedEventArgs>(ReservePojectOriginalStatus);
+
             application.ControlledApplication.DocumentSaving -= new EventHandler<DocumentSavingEventArgs>(CheckProjectStatusUpdate);
             application.ControlledApplication.DocumentSavingAs -= new EventHandler<DocumentSavingAsEventArgs>(CheckProjectStatusUpdate);
 
@@ -41,8 +42,10 @@ namespace CancelSave
             //注册事件
             application.ControlledApplication.DocumentOpened += new EventHandler<DocumentOpenedEventArgs>(ReservePojectOriginalStatus);
             application.ControlledApplication.DocumentCreated += new EventHandler<DocumentCreatedEventArgs>(ReservePojectOriginalStatus);
+
             application.ControlledApplication.DocumentSaving += new EventHandler<DocumentSavingEventArgs>(CheckProjectStatusUpdate);
             application.ControlledApplication.DocumentSavingAs += new EventHandler<DocumentSavingAsEventArgs>(CheckProjectStatusUpdate);
+
             application.ControlledApplication.DocumentClosing += new EventHandler<DocumentClosingEventArgs>(MemClosingDocumentHashCode);
             application.ControlledApplication.DocumentClosed += new EventHandler<DocumentClosedEventArgs>(RemoveStatusofClosedDocument);
 
