@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AvoidObstruction
 {
+    /// <summary>
+    /// 用于寻找某个方向上的障碍物的类
+    /// </summary>
     class Detector
     {
         Document document;
@@ -19,6 +22,12 @@ namespace AvoidObstruction
             view3d = collector.OfClass(typeof(View3D)).Cast<View3D>().FirstOrDefault(e => e != null && !e.IsTemplate);
         }
 
+        /// <summary>
+        /// 寻找给定线段上的障碍物,并按距离排序
+        /// 超出线段长度会被忽略
+        /// </summary>
+        /// <param name="boundLine"></param>
+        /// <returns></returns>
         public List<ReferenceWithContext> Obstructions(Line boundLine)
         {
             List<ReferenceWithContext> result = new List<ReferenceWithContext>();
@@ -43,6 +52,30 @@ namespace AvoidObstruction
             }
             result.Sort(CompareReferencesWithContext);
 
+            return result;
+        }
+
+        /// <summary>
+        /// 寻找给定点及给定方向上的障碍物,并按距离排序
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public List<ReferenceWithContext> Obstructions(XYZ origin, XYZ dir)
+        {
+            List<ReferenceWithContext> result = new List<ReferenceWithContext>();
+            ReferenceIntersector referenceIntersector = new ReferenceIntersector(view3d);
+            referenceIntersector.TargetType = FindReferenceTarget.Face;
+            IList<ReferenceWithContext> obstructionsOnUnboundLine = referenceIntersector.Find(origin, dir);
+            foreach (ReferenceWithContext gRef in obstructionsOnUnboundLine)
+            {
+                if (!InArray(result, gRef))
+                {
+                    result.Add(gRef);
+                }
+            }
+
+            result.Sort(CompareReferencesWithContext);
             return result;
         }
 
