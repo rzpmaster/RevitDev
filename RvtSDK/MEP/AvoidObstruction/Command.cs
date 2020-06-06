@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace AvoidObstruction
 {
+    /// <summary>
+    /// 翻管Demo，可了解翻管的具体思路，Section类设计的有参考价值
+    /// 该项目问题比较多，不能用于实际生产，需要改进
+    /// </summary>
     [Transaction(TransactionMode.Manual)]
     class Command : IExternalCommand
     {
