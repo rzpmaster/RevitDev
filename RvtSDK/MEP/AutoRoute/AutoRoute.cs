@@ -2,7 +2,7 @@
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
-using RevitUtils.RvtElem;
+using RevitUtils.RvtUtils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -178,7 +178,7 @@ namespace AutoRoute
                 );
 
                 //all elements max bbox
-                var maxbbox = BoundingBoxUtils.GetElementsBounding(boxes.ToList());
+                var maxbbox = BoundingBoxUtils.GetElementsMaxBounding(boxes.ToList());
                 double minX = maxbbox.Min.X, minY = maxbbox.Min.Y, minZ = maxbbox.Min.Z;
                 double maxX = maxbbox.Max.X, maxY = maxbbox.Max.Y, maxZ = maxbbox.Max.Z;
 
