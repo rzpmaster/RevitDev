@@ -57,6 +57,7 @@ namespace AvoidObstruction
 
         /// <summary>
         /// 寻找给定点及给定方向上的障碍物,并按距离排序
+        /// 寻找的障碍物的类型为 face ，可以准确的计算距离
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="dir"></param>

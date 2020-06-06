@@ -14,14 +14,12 @@ namespace AvoidObstruction
     class Resolver
     {
         Document document;
-        Application application;
 
         Detector m_detector;
         PipingSystemType m_pipingSystemType;
         public Resolver(ExternalCommandData commandData)
         {
             document = commandData.Application.ActiveUIDocument.Document;
-            application = commandData.Application.Application;
 
             m_detector = new Detector(document);
 
@@ -84,7 +82,7 @@ namespace AvoidObstruction
                 }
             }
 
-            //完成断面翻管,形成 U 型管线
+            //完成每个断面翻管,形成一组 U 型管线
             foreach (Section sec in sections)
             {
                 Resolve(pipe, sec);
@@ -156,9 +154,14 @@ namespace AvoidObstruction
             document.Delete(pipe.Id);
         }
 
+        /// <summary>
+        /// 解决每一个断面的 U 型管道的连接
+        /// </summary>
+        /// <param name="pipe"></param>
+        /// <param name="section"></param>
         private void Resolve(Pipe pipe, Section section)
         {
-            //找到与管线平行的线
+            //找到与管线平行的线（难点）
             Line offset = FindRoute(pipe, section);
 
             Line sectionLine = Line.CreateBound(section.Start, section.End);
@@ -199,7 +202,7 @@ namespace AvoidObstruction
             document.Create.NewElbowFitting(conn3, conn4);
         }
 
-        private Connector FindConnector(Pipe pipe, Autodesk.Revit.DB.XYZ conXYZ)
+        private Connector FindConnector(Pipe pipe, XYZ conXYZ)
         {
             ConnectorSet conns = pipe.ConnectorManager.Connectors;
             foreach (Connector conn in conns)
@@ -233,6 +236,13 @@ namespace AvoidObstruction
             target.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM).Set(diameter);
         }
 
+
+        /// <summary>
+        /// 找个给定断面 与 管线平行的线（难点）
+        /// </summary>
+        /// <param name="pipe"></param>
+        /// <param name="section"></param>
+        /// <returns></returns>
         private Line FindRoute(Pipe pipe, Section section)
         {
             double minLength = pipe.Diameter * 2;
@@ -259,10 +269,12 @@ namespace AvoidObstruction
             //如果障碍物和管线平行,用叉乘法获取不到偏移方向
             if (dirs.Count == 0)
             {
-                // Calculate perpendicular directions with dir in four directions.
+                // 计算四个方向上的法向量
                 List<Autodesk.Revit.DB.XYZ> perDirs = PerpendicularDirs(section.PipeCenterLineDirection, 4);
-                dirs.Add(perDirs[0]);
-                dirs.Add(perDirs[1]);
+                dirs.Add(perDirs[0].Normalize());
+                dirs.Add(perDirs[1].Normalize());
+                //dirs.Add(perDirs[2]);
+                //dirs.Add(perDirs[3]);
             }
 
             Line foundLine = null;
@@ -274,6 +286,7 @@ namespace AvoidObstruction
                 // Find solution in the given directions.
                 for (int i = 0; null == foundLine && i < dirs.Count; i++)
                 {
+                    //以断面起点和终点为新的起点，偏移的方向为方向，继续寻找障碍物
                     List<ReferenceWithContext> obs1 = m_detector.Obstructions(section.Start, dirs[i]);
                     List<ReferenceWithContext> obs2 = m_detector.Obstructions(section.End, dirs[i]);
 
@@ -318,12 +331,21 @@ namespace AvoidObstruction
             return foundLine;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pipe"></param>
+        /// <param name="section"></param>
+        /// <param name="dir">需要找的平行直线先对与管线的方向</param>
+        /// <param name="maxLength">在这个方向上允许移动的最大距离</param>
+        /// <returns></returns>
         private Line FindParallelLine(Pipe pipe, Section section, XYZ dir, double maxLength)
         {
-            double step = pipe.Diameter;
+            double step = 0.5 * pipe.Diameter;
             double hight = 2 * pipe.Diameter;
             while (hight <= maxLength)
             {
+                hight += step;
                 XYZ detal = dir * hight;
                 Line line = Line.CreateBound(section.Start + detal, section.End + detal);
                 List<ReferenceWithContext> refs = m_detector.Obstructions(line);
@@ -333,7 +355,6 @@ namespace AvoidObstruction
                 {
                     return line;
                 }
-                hight += step;
             }
             return null;
         }
@@ -346,6 +367,7 @@ namespace AvoidObstruction
                 return mins;
             }
 
+            //如果第一个大于零，那后面的所有的都大于零；第一个就是最小值
             if (refs[0].Proximity > 0)
             {
                 mins[1] = refs[0];
@@ -367,6 +389,12 @@ namespace AvoidObstruction
             return mins;
         }
 
+        /// <summary>
+        /// 计算给定向量的法向量
+        /// </summary>
+        /// <param name="dir">给定向量</param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         private List<XYZ> PerpendicularDirs(XYZ dir, int count)
         {
             List<XYZ> dirs = new List<XYZ>();

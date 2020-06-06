@@ -95,8 +95,7 @@ namespace AvoidObstruction
 
         /// <summary>
         /// 构造断面
-        /// 一个断面中只有一个障碍物时,有两个点
-        /// 一个断面中有多个障碍物时,会有多个点
+        /// 两个 ReferenceWithContext 一进一出 正好对应一个 障碍物
         /// </summary>
         /// <param name="allrefs">与管线碰撞的所有障碍物</param>
         /// <param name="dir">管线方向</param>
@@ -116,6 +115,9 @@ namespace AvoidObstruction
 
                 current.Refs.Add(geoRef);
 
+                //这里为什么要用一个栈呢？
+                //因为之前找和当前管道碰撞的 ReferenceWithContext 的时候，找的是 face
+                //两个 face 对应一个元素，所以当一个 ReferenceWithContext 进去后再出来，正好对应这一个障碍物
                 ReferenceWithContext tmp = Find(buildStack, geoRef);
                 if (tmp != null)
                 {
