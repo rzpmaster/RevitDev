@@ -55,8 +55,6 @@ namespace RevitUtils.RvtUtils
         /// <returns></returns>
         public static List<int> GetFactorizationNums(int num)
         {
-            List<int> list = new List<int>();
-
             if (num < 0)
             {
                 num = -num;
@@ -64,10 +62,11 @@ namespace RevitUtils.RvtUtils
             }
             else if (num == 0)
             {
-                return null;
+                return new List<int>();
             }
             else
             {
+                List<int> list = new List<int>();
                 for (int i = 1; i <= num; i++)
                 {
                     int a = num / i;
@@ -76,10 +75,9 @@ namespace RevitUtils.RvtUtils
                         list.Add(i);
                     }
                 }
+                return list;
             }
 
-
-            return list;
         }
     }
 }
