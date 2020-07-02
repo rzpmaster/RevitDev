@@ -38,6 +38,7 @@ namespace AvoidObstruction
                 }
                 finally
                 {
+                    //这种结构不可取，catch后还要提交，不合理
                     tr.Commit();
                 }
             }
