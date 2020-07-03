@@ -55,7 +55,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\RevisionIcon.ico" />
+    <Content Include="Resources\RevisionIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
