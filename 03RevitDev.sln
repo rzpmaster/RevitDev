@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryRealted", "RvtSDK\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCommandWorkflow", "RvtSDK\Basics\PostCommandWorkflow\PostCommandWorkflow.csproj", "{6FB9374D-26EF-4AC3-A89D-7BDEE7C8B800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindColumns", "RvtSDK\Geometry\FindColumns\FindColumns.csproj", "{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{6FB9374D-26EF-4AC3-A89D-7BDEE7C8B800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FB9374D-26EF-4AC3-A89D-7BDEE7C8B800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FB9374D-26EF-4AC3-A89D-7BDEE7C8B800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{E8B0E563-31B7-4D5B-9D5B-C1FC3A750561} = {E5F25660-4953-45BE-8723-FB1E282D9624}
 		{DABEBBA0-FC3B-4663-BDD3-8D6BEDD6207C} = {E8B0E563-31B7-4D5B-9D5B-C1FC3A750561}
 		{6FB9374D-26EF-4AC3-A89D-7BDEE7C8B800} = {A9DE326D-E88B-4EA8-951D-9C39E8E8EFF6}
+		{E0EDCFD7-7428-45E3-9328-18DAAAC1CDAE} = {FF6AA619-633B-4755-95D4-48CD6FA76D42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
