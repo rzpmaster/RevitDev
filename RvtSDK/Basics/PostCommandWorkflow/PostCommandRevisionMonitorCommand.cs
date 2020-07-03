@@ -18,13 +18,13 @@ namespace PostCommandWorkflow
             {
                 monitor = new PostCommandRevisionMonitor(doc);
                 monitor.Activate();
-                commandButton.ItemText = "Remove Revision Monitor";
+                commandButton.ItemText = "点击取消修订号监视器";
             }
             else
             {
                 monitor.Deactivate();
                 monitor = null;
-                commandButton.ItemText = "Setup Revision Monitor";
+                commandButton.ItemText = "点击设置修订号监视器";
             }
 
             return Result.Succeeded;

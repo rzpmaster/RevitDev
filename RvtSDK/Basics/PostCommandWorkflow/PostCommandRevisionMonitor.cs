@@ -6,7 +6,7 @@ using System;
 
 namespace PostCommandWorkflow
 {
-    internal class PostCommandRevisionMonitor
+    class PostCommandRevisionMonitor
     {
         Document document;
         AddInCommandBinding binding = null;
@@ -97,8 +97,9 @@ namespace PostCommandWorkflow
         private void HideDocumentNotSaved(object sender, DialogBoxShowingEventArgs args)
         {
             TaskDialogShowingEventArgs tdArgs = args as TaskDialogShowingEventArgs;
-            // The "Document not saved" dialog does not have a usable id, so we are forced to look at the text instead. 
-            if (tdArgs != null && tdArgs.Message.Contains("not saved"))
+
+            // 由于阻止了保存文件，会弹出“为保存文件”对话框，这里将它频闭掉
+            if (tdArgs != null && tdArgs.Message.Contains("未保存"))
                 args.OverrideResult(0x0008);
         }
 
@@ -117,7 +118,10 @@ namespace PostCommandWorkflow
             {
                 binding = application.CreateAddInCommandBinding(id);
             }
+
             binding.BeforeExecuted += ReactToRevisionsAndSchedulesCommand;
+            //在执行RevitCommandId之前，执行externalEvent，也就是 CleanupAfterRevisionEdit 方法，这个方法注销了注册的事件，并 repost了 Save 命令
+            //这里为什么要使用外部事件？先执行屏蔽“未保存文件”对话框，然后外部事件排队，执行修订命令的对话框，执行结束后revit空闲，这里才执行 CleanupAfterRevisionEdit 方法，注销事件（以防止影响到其他命令），在调用保存方法。
 
             // Post the revision editing command
             application.PostCommand(id);
@@ -126,7 +130,7 @@ namespace PostCommandWorkflow
         private void ReactToRevisionsAndSchedulesCommand(object sender, BeforeExecutedEventArgs e)
         {
             if (externalEvent != null)
-                externalEvent.Raise();
+                externalEvent.Raise();//实际执行了 CleanupAfterRevisionEdit 方法。
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +26,13 @@ namespace PostCommandWorkflow
         private void CreateUIPanel(UIControlledApplication application)
         {
             RibbonPanel rp = application.CreateRibbonPanel("UI");
-            PushButtonData setupMonitor = new PushButtonData("Setup_Revision_Monitor", "Setup Revision Monitor",
+            PushButtonData setupMonitor = new PushButtonData("Setup_Revision_Monitor", "点击设置修订号监视器",
                                                             typeof(Application).Assembly.Location,
                                                             typeof(PostCommandRevisionMonitorCommand).FullName);
             PushButton setupMonitorPB = rp.AddItem(setupMonitor) as PushButton;
 
-            var icon = new System.Drawing.Icon(@".\Resources\RevisionIcon.ico");
+            var baseFolder = Path.GetDirectoryName(typeof(Application).Assembly.Location);
+            var icon = new System.Drawing.Icon(baseFolder + @"\Resources\RevisionIcon.ico");
             setupMonitorPB.LargeImage = GetStdIcon(icon);
             setupMonitorPB.Image = GetSmallIcon(icon);
 
