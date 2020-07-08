@@ -47,12 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Utils\RevitUtils\RevitUtils.csproj">
-      <Project>{ac158651-9027-43b9-aa0d-631f55e722f8}</Project>
-      <Name>RevitUtils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="CBIM.Revit.2020.Dlls">
       <Version>1.0.0</Version>
     </PackageReference>

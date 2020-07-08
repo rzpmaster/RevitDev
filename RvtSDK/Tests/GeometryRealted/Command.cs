@@ -1,6 +1,5 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using DotNetUtils.File;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,8 +43,8 @@ namespace GeometryRealted
                 dataTable.Rows.Add(row);
             }
 
-            ExcelHelper excelHelper = new ExcelHelper(@"C:\Users\rzp\Desktop\log.xlsx");
-            excelHelper.DataTableToExcel("1", dataTable, true);
+            //ExcelHelper excelHelper = new ExcelHelper(@"C:\Users\rzp\Desktop\log.xlsx");
+            //excelHelper.DataTableToExcel("1", dataTable, true);
 
             return Result.Succeeded;
         }

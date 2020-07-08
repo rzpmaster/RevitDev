@@ -2,7 +2,6 @@
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
-using RevitUtils.RvtUtils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -177,10 +176,25 @@ namespace AutoRoute
                     DuctSystemType.SupplyAir
                 );
 
-                //all elements max bbox
-                var maxbbox = BoundingBoxUtils.GetElementsMaxBounding(boxes.ToList());
-                double minX = maxbbox.Min.X, minY = maxbbox.Min.Y, minZ = maxbbox.Min.Z;
-                double maxX = maxbbox.Max.X, maxY = maxbbox.Max.Y, maxZ = maxbbox.Max.Z;
+                //Get the boundary of the system
+                double minX = conns[0].Origin.X;
+                double minY = conns[0].Origin.Y;
+                double maxX = conns[0].Origin.X;
+                double maxY = conns[0].Origin.Y;
+                double maxZ = conns[0].Origin.Z;
+                for (int i = 1; i < boxes.Length; ++i)
+                {
+                    if (conns[i].Origin.X < minX)
+                        minX = conns[i].Origin.X;
+                    if (conns[i].Origin.Y < minY)
+                        minY = conns[i].Origin.Y;
+                    if (conns[i].Origin.X > maxX)
+                        maxX = conns[i].Origin.X;
+                    if (conns[i].Origin.Y > maxY)
+                        maxY = conns[i].Origin.Y;
+                    if (conns[i].Origin.Z > maxZ)
+                        maxZ = conns[i].Origin.Z;
+                }
 
                 //Calculate the optional values(可选值) for the trunk ducts
                 double midX = (minX + maxX) / 2;
