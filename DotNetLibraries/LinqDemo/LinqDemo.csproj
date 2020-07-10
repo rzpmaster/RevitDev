@@ -43,11 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formulal.cs" />
+    <Compile Include="LinqQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Racer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="LINQ查询.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StreamDemo\StreamDemo.csproj">

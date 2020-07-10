@@ -14,6 +14,11 @@ namespace LinqDemo
             // 客串管道通讯 客户机
             //PipeClient.NamedPipesWriter();
 
+            LinqQuery linqQuery = new LinqQuery();
+
+            //linqQuery.QueryChinaChampions();
+            linqQuery.ValidateQueryDelayed();
+
 
             Console.ReadLine();
         }
