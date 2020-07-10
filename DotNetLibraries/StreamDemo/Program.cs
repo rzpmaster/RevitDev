@@ -63,6 +63,9 @@ namespace StreamDemo
             //PipeReaderDemo pipeReaderDemo = new PipeReaderDemo();
             //pipeReaderDemo.RunAnonymous();
 
+            //命名管道
+            PipeServer.NamedPipesReader();
+
             #endregion
 
 

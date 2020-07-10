@@ -110,7 +110,7 @@ namespace StreamDemo
         /// 命名管道服务器
         /// </summary>
         /// <param name="pipeName"></param>
-        private static void NamedPipesReader(string pipeName)
+        public static void NamedPipesReader(string pipeName="testPipe")
         {
             try
             {
@@ -149,7 +149,7 @@ namespace StreamDemo
         /// NamedPipeServerStream 是个流,所以可以使用 StreamReader 简化
         /// </summary>
         /// <param name="pipeName"></param>
-        private static void NamedPipesReaderSimple(string pipeName)
+        public static void NamedPipesReaderSimple(string pipeName = "testPipe")
         {
             try
             {
@@ -179,19 +179,25 @@ namespace StreamDemo
     }
 
     //客户端
-    class PipeClient
+    public class PipeClient
     {
         /// <summary>
         /// 命名管道客户端
         /// </summary>
         /// <param name="pipeName"></param>
-        public static void NamedPipesWriter(string pipeName)
+        public static void NamedPipesWriter(string pipeName = "testPipe")
         {
-            var pipeWriter = new NamedPipeClientStream("TheRokcs", pipeName, PipeDirection.Out);
+            //serverName:要连接的远程计算机， . 或 localhost 表示本机地址
+            var pipeWriter = new NamedPipeClientStream("localhost", pipeName, PipeDirection.Out);
             using (var writer = new StreamWriter(pipeWriter))
             {
                 //连接管道
                 pipeWriter.Connect();
+                if (!pipeWriter.IsConnected)
+                {
+                    Console.WriteLine("Failed to connect ....");
+                    return;
+                }
 
                 Console.WriteLine("writer connected");
                 bool completed = false;
