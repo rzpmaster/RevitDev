@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,7 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryReaderDemo.cs" />
+    <Compile Include="DeflateStreamDemo.cs" />
     <Compile Include="FileStreamDemo.cs" />
+    <Compile Include="FileSystemWatcherDemo.cs" />
+    <Compile Include="MemoryMappedFileDemo.cs" />
+    <Compile Include="PipeReaderDemo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StreamReaderDemo.cs" />

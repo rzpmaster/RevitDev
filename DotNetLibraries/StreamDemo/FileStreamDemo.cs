@@ -217,7 +217,7 @@ namespace StreamDemo
             return encoding;
         }
 
-        string tempTextFileName = @"C:\Users\rzp\Desktop\temp.txt";
-        string tempTextFileName1 = @"C:\Users\rzp\Desktop\temp1.txt";
+        string tempTextFileName = Program.tempTextFileName;
+        string tempTextFileName1 = Program.tempTextFileName1;
     }
 }
