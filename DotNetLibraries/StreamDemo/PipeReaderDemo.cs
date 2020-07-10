@@ -21,16 +21,24 @@ namespace StreamDemo
     class PipeReaderDemo
     {
         ///
+        /// 命名管道
+        ///
+
+        public void RunNamed()
+        {
+
+        }
+
+        ///
         /// 匿名管道
         ///
 
         private string _pipeHandle;
         //创建一个信号状态（是否有收到信号）
-        private ManualResetEventSlim _pipeHandleSet;
+        private ManualResetEventSlim _pipeHandleSet = new ManualResetEventSlim(initialState: false);
 
-        public void Run()
+        public void RunAnonymous()
         {
-            _pipeHandleSet = new ManualResetEventSlim(initialState: false);
             Task.Run(() => Reader());
             Task.Run(() => Writer());
         }
@@ -52,7 +60,8 @@ namespace StreamDemo
                     writer.WriteLine("Message " + i);
                     Task.Delay(500).Wait();
                 }
-                Console.WriteLine("finished reading");
+                writer.WriteLine("end");
+                Console.WriteLine("finished weiting");
             }
         }
 
@@ -79,7 +88,7 @@ namespace StreamDemo
                         if (line == "end")
                             end = true;
                     }
-                    Console.WriteLine("finished Writing");
+                    Console.WriteLine("finished reading");
                 }
             }
             catch (Exception ex)
