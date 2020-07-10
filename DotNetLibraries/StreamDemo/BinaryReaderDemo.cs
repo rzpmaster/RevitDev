@@ -12,6 +12,20 @@ namespace StreamDemo
     /// </summary>
     class BinaryReaderDemo
     {
+        public void ReadFileUsingBinaryReader()
+        {
+            var inputStream = File.Open(tempTextFileName, FileMode.Open);
+            using (var reader = new BinaryReader(inputStream))
+            {
+                //读取并定位
+                double d = reader.ReadDouble();
+                int i = reader.ReadInt32();
+                long l = reader.ReadInt64();
+                string s = reader.ReadString();
+                Console.WriteLine($"d:{d} \t i:{i} \t l:{l} \t s:{s} ");
+            }
+        }
+
         public void WriteFileUsingBinaryWriter()
         {
             var outputStream = File.Create(tempTextFileName);
@@ -28,6 +42,6 @@ namespace StreamDemo
             }
         }
 
-        string tempTextFileName = @"C:\Users\rzp\Desktop\temp.txt";
+        string tempTextFileName = Program.tempTextFileName;
     }
 }

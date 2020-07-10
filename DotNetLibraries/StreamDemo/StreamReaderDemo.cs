@@ -45,6 +45,6 @@ namespace StreamDemo
             }
         }
 
-        string tempTextFileName = @"C:\Users\rzp\Desktop\temp.txt";
+        string tempTextFileName = Program.tempTextFileName;
     }
 }
