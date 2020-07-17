@@ -5,25 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeometryRealted
+namespace GeometryTest
 {
     public class GeometryInfo
     {
         public Element Element { get; set; }
-        public ElementType ElementType { get; set; }
 
         public List<GeometryInstance> GeometryInstances { get; set; }
         public List<Solid> Solids { get; set; }
         public List<object> Others { get; set; }
-
-
-        public bool IsSimilarType
-        {
-            get
-            {
-                return ElementType?.IsSimilarType(ElementType.Id) ?? false;
-            }
-        }
 
         public GeometryInfo(Element element)
         {
@@ -33,7 +23,6 @@ namespace GeometryRealted
             }
 
             Element = element;
-            ElementType = element.Document.GetElement(element.GetTypeId()) as ElementType;
             GeometryInstances = new List<GeometryInstance>();
             Solids = new List<Solid>();
             Others = new List<object>();
@@ -74,10 +63,9 @@ namespace GeometryRealted
                 return string.Empty;
             }
 
-            return string.Format("{0}的类型是{1},{2}简单类型，他的Gemoetry包括：GemoInstance有{3}个；Solid有{4}个；Others有{5}个",
+            return string.Format("{0}的类型是{1},，他的Gemoetry包括：GemoInstance有{2}个；Solid有{3}个；Others有{4}个",
                                     Element.Name,
                                     Element.Category.Name,
-                                    IsSimilarType ? "是" : "不是",
                                     GeometryInstances.Count,
                                     Solids.Count,
                                     Others.Count);
