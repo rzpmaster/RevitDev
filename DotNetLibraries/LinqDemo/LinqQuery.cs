@@ -51,9 +51,9 @@ namespace LinqDemo
             var namesWithJToList = (from n in names
                                     where n.StartsWith("J")
                                     orderby n
-                                    select n).ToList();
+                                    select n);
 
-            Console.WriteLine("调用ToList():");
+            //Console.WriteLine("调用ToList():");
             foreach (string name in namesWithJToList)
             {
                 Console.WriteLine(name);
@@ -74,27 +74,38 @@ namespace LinqDemo
         /// </summary>
         public void WhereDemo()
         {
-            var racers = from r in Formulal.GetChampions()
-                         where r.Wins > 15 && (r.Country == "China" || r.Country == "UK")
-                         select r;
-            foreach (var r in racers)
+            //1 
+            var racers0 = from r in Formulal.GetChampions()
+                          where r.Wins > 15 && (r.Country == "China" || r.Country == "UK")
+                          select r;
+            foreach (var r in racers0)
             {
-                Console.WriteLine(r);
+                Console.WriteLine(r.ToString());
             }
 
-            var racers2 = Formulal.GetChampions()
+            var racers0_1 = Formulal.GetChampions()
                 .Where(r => r.Wins > 15 && (r.Country == "China" || r.Country == "UK"))
                 .Select(r => r);
-            foreach (var r in racers2)
+            foreach (var r in racers0_1)
             {
-                Console.WriteLine(r);
+                Console.WriteLine(r.ToString());
             }
 
-            var racers3 = Formulal.GetChampions()
+            //2 这种情况只能用 扩展函数
+            //var racers1 = from r in Formulal.GetChampions()
+            //              where r.LastName.StartsWith("A") && 
+            //              select r;
+            //foreach (var r in racers1)
+            //{
+            //    Console.WriteLine(r.ToString());
+            //}
+
+            //index 是索引（这是扩展方法的重载）
+            var racers1_1 = Formulal.GetChampions()
                 .Where((r, index) => r.LastName.StartsWith("A") && index % 2 != 0);
-            foreach (var r in racers3)
+            foreach (var r in racers1_1)
             {
-                Console.WriteLine(r);
+                Console.WriteLine(r.ToString());
             }
         }
 
@@ -123,11 +134,21 @@ namespace LinqDemo
                                  orderby r.LastName
                                  select r.FirstName + " " + r.LastName;
 
+            foreach (var item in ferrariDrivers)
+            {
+                Console.WriteLine(item);
+            }
+
             var ferrariDrivers2 = Formulal.GetChampions()
                 .SelectMany(r => r.Cars, (r, c) => new { Racer = r, Car = c })
                 .Where(r => r.Car == "Ferrari")
                 .OrderBy(r => r.Racer.LastName)
                 .Select(r => r.Racer.FirstName + " " + r.Racer.LastName);
+
+            foreach (var item in ferrariDrivers2)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
@@ -138,12 +159,20 @@ namespace LinqDemo
             var racers = (from r in Formulal.GetChampions()
                           orderby r.Country, r.LastName, r.FirstName ascending
                           select r).Take(10);
+            foreach (var item in racers)
+            {
+                Console.WriteLine(item.Country + "\t" + item.LastName + "\t" + item.FirstName);
+            }
 
             var racers2 = Formulal.GetChampions()
                 .OrderBy(r => r.Country)
                 .ThenBy(r => r.LastName)
                 .ThenByDescending(r => r.FirstName)
                 .Take(10);
+            foreach (var item in racers2)
+            {
+                Console.WriteLine(item.Country + "\t" + item.LastName + "\t" + item.FirstName);
+            }
         }
 
         /// <summary>
@@ -160,6 +189,10 @@ namespace LinqDemo
                                 Country = g.Key,
                                 Count = g.Count()
                             };
+            foreach (var item in countries)
+            {
+                Console.WriteLine(item.Country + item.Count);
+            }
 
             var countries2 = Formulal.GetChampions()
                 .GroupBy(r => r.Country)
@@ -167,6 +200,10 @@ namespace LinqDemo
                 .ThenBy(g => g.Key)
                 .Where(g => g.Count() >= 2)
                 .Select(g => new { Country = g.Key, Count = g.Count() });
+            foreach (var item in countries2)
+            {
+                Console.WriteLine(item.Country + item.Count);
+            }
         }
 
         /// <summary>
@@ -187,7 +224,7 @@ namespace LinqDemo
 
             var countries2 = Formulal.GetChampions()
                 .GroupBy(r => r.Country)
-                .Select(g => new { Group = g, Count = g.Count() })
+                .Select(g => new { Group = g, Count = g.Count() })  //扩展方法重命名直接用Select
                 .OrderByDescending(g => g.Count)
                 .ThenBy(g => g.Group.Key)
                 .Where(g => g.Count >= 2)
@@ -234,6 +271,7 @@ namespace LinqDemo
         /// </summary>
         public void InnerJoinDemo()
         {
+            //分布查询
             var racers = from r in Formulal.GetChampions()
                          from y in r.Years
                          select new
@@ -258,8 +296,14 @@ namespace LinqDemo
                                       Champion = r.Name,
                                       Constructor = t.Name
                                   }).Take(10);
+            Console.WriteLine("输出结果：");
+            foreach (var item in racersAndTeams)
+            {
+                Console.WriteLine($"{item.Year}:{item.Champion,-20} {item.Constructor}");
+            }
 
 
+            //一步查询
             var racersAndTeams2 =
                 (from r in from r1 in Formulal.GetChampions()
                            from yr in r1.Years
@@ -512,6 +556,9 @@ namespace LinqDemo
             }
         }
 
+        /// <summary>
+        /// ToLookUp ToList
+        /// </summary>
         public void ToListDemo()
         {
             List<Racer> racers = (from r in Formulal.GetChampions()
@@ -575,10 +622,10 @@ namespace LinqDemo
                           where Math.Log(x) < 4
                           select x).Average();
 
-            
+
         }
 
-        public static IEnumerable<int> SampleData()
+        static IEnumerable<int> SampleData()
         {
             const int arraySize = 50000000;
             var r = new Random();
@@ -590,7 +637,8 @@ namespace LinqDemo
         {
             var cts = new CancellationTokenSource();
             var data = SampleData();
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 try
                 {
                     var res = (from x in data.AsParallel().WithCancellation(cts.Token)
