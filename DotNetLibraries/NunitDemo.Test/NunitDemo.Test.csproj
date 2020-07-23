@@ -44,7 +44,10 @@
   <ItemGroup>
     <Compile Include="LoanAmountShould.cs" />
     <Compile Include="LoanProductShould.cs" />
+    <Compile Include="LoanRepaymentCalculatorShould.cs" />
     <Compile Include="LoanTermShould.cs" />
+    <Compile Include="MonthlyRepaymentComparsionShould.cs" />
+    <Compile Include="MonthlyRepaymentTestDate.cs" />
     <Compile Include="ProductComparerShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +67,11 @@
       <Project>{c2d40257-901b-45c8-b44b-29d20a043345}</Project>
       <Name>NunitDemo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

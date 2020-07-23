@@ -16,7 +16,7 @@ namespace NunitDemo.Domain.Application
         {
             if (years < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(years), "Please speify a value greater than 1");
+                throw new ArgumentOutOfRangeException(nameof(years), "Please specify a value greater than 0");
             }
 
             Years = years;

@@ -7,9 +7,11 @@ using System.Configuration;
 namespace NunitDemo.Test
 {
     [TestFixture]
+    [Ignore("Need to completed update work.")]  
     public class LoanTermShould
     {
         [Test]
+        [Ignore("Need to completed update work.")]
         public void ReturnTermInMonths()
         {
             var sut = new LoanTerm(1);
