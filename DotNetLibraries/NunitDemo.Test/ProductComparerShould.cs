@@ -37,7 +37,7 @@ namespace NunitDemo.Test
                 new LoanProduct(1,"a",1),
                 new LoanProduct(2,"b",2),
                 new LoanProduct(3,"c",3),
-                new LoanProduct(3,"c",3),
+                //new LoanProduct(3,"c",3),
             };
 
             var sut = new ProductComparer(new LoanAmount("USD", 200_000m), products);
@@ -55,15 +55,16 @@ namespace NunitDemo.Test
                 new LoanProduct(1,"a",1),
                 new LoanProduct(2,"b",2),
                 new LoanProduct(3,"c",3),
-                new LoanProduct(3,"c",3),
             };
 
             var sut = new ProductComparer(new LoanAmount("USD", 200_000m), products);
 
             List<MonthlyRepaymentComparsion> comparsions = sut.CompareMonthlyRepayments(new LoanTerm(30));
 
-            var expectedProduct = new MonthlyRepaymentComparsion("a", 1, 1 / 100 * 12 * 200_000m * 30 * 12);
+            var repayment = new LoanRepaymentCalculator().CalculatorMonthlyRepayment(new LoanAmount("USD", 200_000m), 1, new LoanTerm(30));
+            var expectedProduct = new MonthlyRepaymentComparsion("a", 1, repayment);
 
+            // Assert.That(comparsions, Does.Contain(comparsions[0]));
             Assert.That(comparsions, Does.Contain(expectedProduct));
         }
     }

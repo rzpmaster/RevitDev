@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NunitDemo.Domain.Application
 {
-    public class MonthlyRepaymentComparsion
+    public class MonthlyRepaymentComparsion : ValueObject
     {
         public string ProductName { get; private set; }
         public decimal InterestRate { get; private set; }
@@ -17,6 +17,13 @@ namespace NunitDemo.Domain.Application
             this.ProductName = productName;
             this.InterestRate = interestRate;
             this.Repayment = repayment;
+        }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return ProductName;
+            yield return InterestRate;
+            yield return Repayment;
         }
     }
 }

@@ -42,6 +42,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoanAmountShould.cs" />
+    <Compile Include="LoanProductShould.cs" />
     <Compile Include="LoanTermShould.cs" />
     <Compile Include="ProductComparerShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
