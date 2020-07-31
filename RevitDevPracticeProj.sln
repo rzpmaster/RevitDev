@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitDemo", "DotNetLibrarie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitDemo.Test", "DotNetLibraries\NunitDemo.Test\NunitDemo.Test.csproj", "{DAEEE0BB-05E2-41EC-81D8-486D60A389C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.NetDemo", "DotNetLibraries\Json.NetDemo\Json.NetDemo.csproj", "{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{DAEEE0BB-05E2-41EC-81D8-486D60A389C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAEEE0BB-05E2-41EC-81D8-486D60A389C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAEEE0BB-05E2-41EC-81D8-486D60A389C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -188,6 +194,7 @@ Global
 		{3FD180D3-C121-4777-A95C-D961329E38DC} = {618EB1D3-792E-4989-8B3C-284D9F760E70}
 		{C2D40257-901B-45C8-B44B-29D20A043345} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{DAEEE0BB-05E2-41EC-81D8-486D60A389C6} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
+		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
