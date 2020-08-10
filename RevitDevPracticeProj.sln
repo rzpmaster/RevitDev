@@ -69,9 +69,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitDemo.Test", "DotNetLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.NetDemo", "DotNetLibraries\Json.NetDemo\Json.NetDemo.csproj", "{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandling", "ErrorHandling\ErrorHandling.csproj", "{EEF8313F-C285-4FEC-A887-BCBE7825B163}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemo", "DotNetLibraries\TaskDemo\AsyncDemo.csproj", "{DA397655-A3E9-464A-B385-0D134E00151C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemo", "DotNetLibraries\AsyncDemo\AsyncDemo.csproj", "{DA397655-A3E9-464A-B385-0D134E00151C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
