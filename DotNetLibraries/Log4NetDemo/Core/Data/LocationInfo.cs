@@ -98,7 +98,6 @@ namespace Log4NetDemo.Core.Data
             }
         }
 
-
         public string ClassName
         {
             get { return m_className; }

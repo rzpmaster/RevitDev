@@ -28,6 +28,7 @@ namespace Log4NetDemo.Core.Data
         public readonly static Level All = new Level(int.MinValue, "ALL");
 
         #region Public Instance Constructors
+
         public Level(int level, string levelName, string displayName)
         {
             if (levelName == null)
@@ -47,9 +48,11 @@ namespace Log4NetDemo.Core.Data
         public Level(int level, string levelName) : this(level, levelName, levelName)
         {
         }
+
         #endregion
 
         #region Public Instance Properties
+
         public string Name
         {
             get { return m_levelName; }
@@ -64,9 +67,11 @@ namespace Log4NetDemo.Core.Data
         {
             get { return m_levelDisplayName; }
         }
+
         #endregion
 
         #region Override implementation of Object
+
         override public string ToString()
         {
             return m_levelName;
@@ -89,9 +94,11 @@ namespace Log4NetDemo.Core.Data
         {
             return m_levelValue;
         }
+
         #endregion
 
         #region Implementation of IComparable
+
         public int CompareTo(object obj)
         {
             Level target = obj as Level;
@@ -125,9 +132,11 @@ namespace Log4NetDemo.Core.Data
 
             return this.m_levelValue.CompareTo(other.m_levelValue);
         }
+
         #endregion
 
         #region Operators
+
         public static bool operator >(Level l, Level r)
         {
             return l.m_levelValue > r.m_levelValue;
@@ -164,15 +173,15 @@ namespace Log4NetDemo.Core.Data
         {
             return !(l == r);
         }
-        #endregion
 
-        #region Public Static Methods
         #endregion
 
         #region Private Instance Fields
+
         private readonly int m_levelValue;
         private readonly string m_levelName;
         private readonly string m_levelDisplayName;
+
         #endregion
     }
 }
