@@ -1,14 +1,10 @@
 ﻿using Log4NetDemo.Core.Interface;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Log4NetDemo.Context
 {
-	public sealed class ThreadContextStack : IFixingRequired
+    public sealed class ThreadContextStack : IFixingRequired
 	{
 		#region Private Static Fields
 
@@ -49,6 +45,8 @@ namespace Log4NetDemo.Context
 		/// the number of times <see cref="Push"/> has been called
 		/// minus the number of times <see cref="Pop"/> has been called.
 		/// </para>
+		/// <para>
+		/// 堆栈中当前的消息数。那就是调用<see cref=“Push”/>的次数减去调用<see cref=“Pop”/>的次数。</para>
 		/// </remarks>
 		public int Count
 		{
@@ -351,57 +349,5 @@ namespace Log4NetDemo.Context
 
 			#endregion Implementation of IDisposable
 		}
-
-#if NETCF_1_0
-		/// <summary>
-		/// Subclass of <see cref="System.Collections.Stack"/> to
-		/// provide missing methods.
-		/// </summary>
-		/// <remarks>
-		/// <para>
-		/// The Compact Framework version of the <see cref="System.Collections.Stack"/>
-		/// class is missing the <c>Clear</c> and <c>Clone</c> methods.
-		/// This subclass adds implementations of those missing methods.
-		/// </para>
-		/// </remarks>
-		public class Stack : System.Collections.Stack
-		{
-			/// <summary>
-			/// Clears the stack of all elements.
-			/// </summary>
-			/// <remarks>
-			/// <para>
-			/// Clears the stack of all elements.
-			/// </para>
-			/// </remarks>
-			public void Clear()
-			{
-				while(Count > 0)
-				{
-					Pop();
-				}
-			}
-
-			/// <summary>
-			/// Makes a shallow copy of the stack's elements.
-			/// </summary>
-			/// <returns>A new stack that has a shallow copy of the stack's elements.</returns>
-			/// <remarks>
-			/// <para>
-			/// Makes a shallow copy of the stack's elements.
-			/// </para>
-			/// </remarks>
-			public Stack Clone()
-			{
-				Stack res = new Stack();
-				object[] items = ToArray();
-				foreach(object item in items)
-				{
-					res.Push(item);
-				}
-				return res;
-			}
-		}
-#endif
 	}
 }

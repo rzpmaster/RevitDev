@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Log4NetDemo.Context
+﻿namespace Log4NetDemo.Context
 {
-	public sealed class ThreadContext
+    public sealed class ThreadContext
 	{
 		#region Private Instance Constructors
 
