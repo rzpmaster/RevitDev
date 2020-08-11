@@ -42,17 +42,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ContextPropertiesBase.cs" />
+    <Compile Include="Context\GlobalContext.cs" />
+    <Compile Include="Context\GlobalContextProperties.cs" />
+    <Compile Include="Context\LogicalThreadContext.cs" />
+    <Compile Include="Context\LogicalThreadContextProperties.cs" />
+    <Compile Include="Context\LogicalThreadContextStack.cs" />
+    <Compile Include="Context\LogicalThreadContextStacks.cs" />
+    <Compile Include="Context\ThreadContext.cs" />
+    <Compile Include="Context\ThreadContextProperties.cs" />
+    <Compile Include="Context\ThreadContextStack.cs" />
+    <Compile Include="Context\ThreadContextStacks.cs" />
     <Compile Include="Core\Data\Level.cs" />
     <Compile Include="Core\Data\LocationInfo.cs" />
     <Compile Include="Core\Data\LoggingEvent.cs" />
+    <Compile Include="Core\Interface\IFixingRequired.cs" />
     <Compile Include="Core\Interface\ILogger.cs" />
     <Compile Include="Core\Interface\ILoggerWrapper.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="ObjectRenderer\RendererMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ILoggerRepository.cs" />
+    <Compile Include="Util\CompositeProperties.cs" />
     <Compile Include="Util\LogLog.cs" />
     <Compile Include="Util\OptionConverter.cs" />
     <Compile Include="Util\PropertiesDictionary.cs" />
+    <Compile Include="Util\PropertyEntry.cs" />
     <Compile Include="Util\ReadOnlyPropertiesDictionary.cs" />
     <Compile Include="Util\SystemInfo.cs" />
   </ItemGroup>
