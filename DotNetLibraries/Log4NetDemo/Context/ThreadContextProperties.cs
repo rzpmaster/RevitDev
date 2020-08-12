@@ -3,6 +3,9 @@ using System;
 
 namespace Log4NetDemo.Context
 {
+    /// <summary>
+    /// 线程属性字典
+    /// </summary>
     public sealed class ThreadContextProperties : ContextPropertiesBase
     {
         #region Private Instance Fields
@@ -17,14 +20,6 @@ namespace Log4NetDemo.Context
 
         #region Public Instance Constructors
 
-        /// <summary>
-        /// Internal constructor
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Initializes a new instance of the <see cref="ThreadContextProperties" /> class.
-        /// </para>
-        /// </remarks>
         internal ThreadContextProperties()
         {
         }
@@ -33,17 +28,6 @@ namespace Log4NetDemo.Context
 
         #region Public Instance Properties
 
-        /// <summary>
-        /// Gets or sets the value of a property
-        /// </summary>
-        /// <value>
-        /// The value for the property with the specified key
-        /// </value>
-        /// <remarks>
-        /// <para>
-        /// Gets or sets the value of a property
-        /// </para>
-        /// </remarks>
         override public object this[string key]
         {
             get
@@ -64,15 +48,6 @@ namespace Log4NetDemo.Context
 
         #region Public Instance Methods
 
-        /// <summary>
-        /// Remove a property
-        /// </summary>
-        /// <param name="key">the key for the entry to remove</param>
-        /// <remarks>
-        /// <para>
-        /// Remove a property
-        /// </para>
-        /// </remarks>
         public void Remove(string key)
         {
             if (_dictionary != null)
@@ -81,13 +56,6 @@ namespace Log4NetDemo.Context
             }
         }
 
-        /// <summary>
-        /// Get the keys stored in the properties.
-        /// </summary>
-        /// <para>
-        /// Gets the keys stored in the properties.
-        /// </para>
-        /// <returns>a set of the defined keys</returns>
         public string[] GetKeys()
         {
             if (_dictionary != null)
@@ -97,14 +65,6 @@ namespace Log4NetDemo.Context
             return null;
         }
 
-        /// <summary>
-        /// Clear all properties
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Clear all properties
-        /// </para>
-        /// </remarks>
         public void Clear()
         {
             if (_dictionary != null)
@@ -129,7 +89,8 @@ namespace Log4NetDemo.Context
         /// caller must clone the collection before doing so.
         /// </para>
         /// <para>
-        /// 返回的集合只能用于调用线程。如果调用方需要在不同线程之间共享集合，然后调用方必须在执行此操作之前克隆集合。
+        /// 返回的 _dictionary 只能用于调用线程。
+        /// 如果调用方需要在不同线程之间共享 _dictionary ，调用方必须先克隆它
         ///</para>
         /// </remarks>
         internal PropertiesDictionary GetProperties(bool create)

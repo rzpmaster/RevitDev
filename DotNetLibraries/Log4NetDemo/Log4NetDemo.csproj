@@ -71,5 +71,8 @@
     <Compile Include="Util\ReadOnlyPropertiesDictionary.cs" />
     <Compile Include="Util\SystemInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Appender\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
