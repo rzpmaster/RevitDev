@@ -6,7 +6,6 @@ namespace Log4NetDemo.Util
     /// <summary>
     /// 提供对嵌套属性字典的压平操作
     /// </summary>
-    /// <remarks>
     public sealed class CompositeProperties
     {
         internal CompositeProperties() { }
@@ -39,6 +38,10 @@ namespace Log4NetDemo.Util
             m_nestedProperties.Add(properties);
         }
 
+        /// <summary>
+        /// 对嵌套属性字典的压平操作
+        /// </summary>
+        /// <returns></returns>
         public PropertiesDictionary Flatten()
         {
             if (m_flattened == null)

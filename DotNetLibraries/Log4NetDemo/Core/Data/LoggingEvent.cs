@@ -4,13 +4,9 @@ using Log4NetDemo.Repository;
 using Log4NetDemo.Util;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Log4NetDemo.Core.Data
 {
@@ -53,6 +49,10 @@ namespace Log4NetDemo.Core.Data
         public string Identity;
         public string ExceptionString;
         public string Domain;
+
+        /// <summary>
+        /// 缓存进的数据
+        /// </summary>
         public PropertiesDictionary Properties;
     }
 
@@ -454,6 +454,11 @@ namespace Log4NetDemo.Core.Data
             }
         }
 
+        /// <summary>
+        /// 获取当前LoggingEvent的属性字典（作为一部分成员加入到嵌套的属性字典中）
+        /// 如果已经缓存过，则优先返回已经返回的数据
+        /// 如果没有缓存过，之前的修改将会丢失
+        /// </summary>
         public PropertiesDictionary Properties
         {
             get
@@ -507,6 +512,7 @@ namespace Log4NetDemo.Core.Data
                     else
                     {
                         // Very last resort
+                        // 万不得已
                         m_data.ExceptionString = m_thrownException.ToString();
                     }
                 }
@@ -544,13 +550,25 @@ namespace Log4NetDemo.Core.Data
             return m_compositeProperties.Flatten();
         }
 
+        #endregion
+
+        /// <summary>
+        /// 验证 Fix 标志位（如果标志位已经存在，就不管，如果不存在，就添加上去）
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <remarks>
+        /// <para>
+        /// 修改结束会关闭缓存修改，
+        /// 如果修改过程中有 <see cref="FixFlags.Properties"/> 则会重新缓存数据
+        /// </para>
+        /// </remarks>
         protected void FixVolatileData(FixFlags flags)
         {
             object forceCreation = null;
 
-            //Unlock the cache so that new values can be stored
-            //This may not be ideal if we are no longer in the correct context
-            //and someone calls fix. 
+            // Unlock the cache so that new values can be stored
+            // This may not be ideal if we are no longer in the correct context
+            // and someone calls fix. 
             m_cacheUpdatable = true;
 
             // determine the flags that we are actually fixing
@@ -618,34 +636,36 @@ namespace Log4NetDemo.Core.Data
                 }
             }
 
-            // avoid warning CS0219
-            if (forceCreation != null)
-            {
-            }
+            // avoid warning CS0219     取消 CS 警告
+            if (forceCreation != null) { }
 
             //Finaly lock everything we've cached.
             m_cacheUpdatable = false;
         }
 
-        #endregion
-
         #region private Instance Methods
 
+        /// <summary>
+        /// 创建嵌套的属性字典
+        /// </summary>
         private void CreateCompositeProperties()
         {
             CompositeProperties compositeProperties = new CompositeProperties();
 
+            // 事件属性字典
             if (m_eventProperties != null)
             {
                 compositeProperties.Add(m_eventProperties);
             }
-#if !NETCF
+
+            // 逻辑线程上下文属性字典
             PropertiesDictionary logicalThreadProperties = LogicalThreadContext.Properties.GetProperties(false);
             if (logicalThreadProperties != null)
             {
                 compositeProperties.Add(logicalThreadProperties);
             }
-#endif
+
+            // 线程上下文属性字典
             PropertiesDictionary threadProperties = ThreadContext.Properties.GetProperties(false);
             if (threadProperties != null)
             {
@@ -660,10 +680,22 @@ namespace Log4NetDemo.Core.Data
             eventProperties[IdentityProperty] = Identity;
             compositeProperties.Add(eventProperties);
 
+            // 全局上下文属性字典
             compositeProperties.Add(GlobalContext.Properties.GetReadOnlyProperties());
+
+            // 最终的嵌套的属性字典
+            // 不用担心重复添加，都是只读的，添加的时候，会删除掉原来的，用新的替换掉
             m_compositeProperties = compositeProperties;
         }
 
+        /// <summary>
+        /// 缓存数据
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// 将数据缓存到 LoggingEventData 的属性字典中
+        /// </para>
+        /// </remarks>
         private void CacheProperties()
         {
             if (m_data.Properties == null && this.m_cacheUpdatable)
@@ -748,15 +780,16 @@ namespace Log4NetDemo.Core.Data
         private readonly Exception m_thrownException;
 
         /// <summary>
-        /// 
+        /// 日志存储库
         /// </summary>
         private ILoggerRepository m_repository = null;
         /// <summary>
-        /// 指示那些字段需要被输出
+        /// 指示那些字段需要被输出，默认为FixFlags.None
         /// </summary>
         private FixFlags m_fixFlags = FixFlags.None;
+
         /// <summary>
-        /// 是否允许 <seealso cref="FixFlags"/> 更改
+        /// 缓存是否可更新，默认为 True，显式设置完 Fix <seealso cref="FixFlags"/> 后将其设为 False
         /// </summary>
         private bool m_cacheUpdatable = true;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Log4NetDemo.Context
+﻿namespace Log4NetDemo.Context
 {
     /// <summary>
     /// 逻辑线程上下文
