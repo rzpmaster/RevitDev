@@ -4,7 +4,7 @@ using System;
 namespace Log4NetDemo.Context
 {
     /// <summary>
-    /// 线程属性字典维护的 栈集合
+    /// 线程属性上下文维护的 栈集合
     /// </summary>
     public sealed class ThreadContextStacks
     {

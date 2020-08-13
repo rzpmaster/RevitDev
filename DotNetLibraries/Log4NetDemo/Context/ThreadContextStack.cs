@@ -12,7 +12,7 @@ namespace Log4NetDemo.Context
         internal ThreadContextStack() { }
 
         /// <summary>
-        /// 栈里放的是 StackFrame
+        /// 内部维护的栈，栈里放的是 StackFrame
         /// </summary>
         /// <remarks>
         /// Stack<StackFrame> m_stack = new Stack<StackFrame>();
@@ -174,7 +174,7 @@ namespace Log4NetDemo.Context
         #endregion Internal Methods
 
         /// <summary>
-        /// 栈中压入的对象，内部类（链式结构）
+        /// 表示栈中压入的对象，内部类（链式结构）
         /// </summary>
         private sealed class StackFrame
         {

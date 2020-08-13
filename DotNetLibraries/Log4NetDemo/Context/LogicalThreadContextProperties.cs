@@ -11,46 +11,23 @@ namespace Log4NetDemo.Context
 {
     public sealed class LogicalThreadContextProperties : ContextPropertiesBase
     {
-#if NETSTANDARD1_3
-		private static readonly AsyncLocal<PropertiesDictionary> AsyncLocalDictionary = new AsyncLocal<PropertiesDictionary>();
-#else
         private const string c_SlotName = "log4net.Util.LogicalThreadContextProperties";
-#endif
 
         /// <summary>
         /// Flag used to disable this context if we don't have permission to access the CallContext.
+        /// 如果没有访问 CallContext 的权限，则禁用掉此上下文
         /// </summary>
         private bool m_disabled = false;
 
-        #region Public Instance Constructors
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Initializes a new instance of the <see cref="LogicalThreadContextProperties" /> class.
-        /// </para>
-        /// </remarks>
-        internal LogicalThreadContextProperties()
-        {
-        }
-
-        #endregion Public Instance Constructors
+        internal LogicalThreadContextProperties() { }
 
         #region Public Instance Properties
 
         /// <summary>
-        /// Gets or sets the value of a property
+        /// 重写的索引器
         /// </summary>
-        /// <value>
-        /// The value for the property with the specified key
-        /// </value>
-        /// <remarks>
-        /// <para>
-        /// Get or set the property value for the <paramref name="key"/> specified.
-        /// </para>
-        /// </remarks>
+        /// <param name="key"></param>
+        /// <returns></returns>
         override public object this[string key]
         {
             get
@@ -132,6 +109,9 @@ namespace Log4NetDemo.Context
         /// caller needs to share the collection between different threads then the 
         /// caller must clone the collection before doings so.
         /// </para>
+        /// <para>
+        /// 封装了一层从 CallContext 拿取数据（get）的方法，并包装了异常处理 
+        /// </para>
         /// </remarks>
         internal PropertiesDictionary GetProperties(bool create)
         {
@@ -177,18 +157,9 @@ namespace Log4NetDemo.Context
         /// security link demand, therfore we must put the method call in a seperate method
         /// that we can wrap in an exception handler.
         /// </remarks>
-#if NET_4_0 || MONO_4_0
-        [System.Security.SecuritySafeCritical]
-#endif
         private static PropertiesDictionary GetLogicalProperties()
         {
-#if NETSTANDARD1_3
-            return AsyncLocalDictionary.Value;
-#elif NET_2_0 || MONO_2_0 || MONO_3_5 || MONO_4_0
-            return CallContext.LogicalGetData(c_SlotName) as PropertiesDictionary;
-#else
             return CallContext.GetData(c_SlotName) as PropertiesDictionary;
-#endif
         }
 
         /// <summary>
@@ -200,18 +171,9 @@ namespace Log4NetDemo.Context
         /// security link demand, therfore we must put the method call in a seperate method
         /// that we can wrap in an exception handler.
         /// </remarks>
-#if NET_4_0 || MONO_4_0
-        [System.Security.SecuritySafeCritical]
-#endif
         private static void SetLogicalProperties(PropertiesDictionary properties)
         {
-#if NETSTANDARD1_3
-			AsyncLocalDictionary.Value = properties;
-#elif NET_2_0 || MONO_2_0 || MONO_3_5 || MONO_4_0
-			CallContext.LogicalSetData(c_SlotName, properties);
-#else
             CallContext.SetData(c_SlotName, properties);
-#endif
         }
 
         #endregion
