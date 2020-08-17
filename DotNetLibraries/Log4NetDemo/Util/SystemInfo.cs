@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Configuration;
 using System.Reflection;
 using System.Threading;
@@ -201,6 +202,11 @@ namespace Log4NetDemo.Util
 
         #region Public Static Methods
 
+        /// <summary>
+        /// 获取配置文件中的信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string GetAppSetting(string key)
         {
             try
@@ -213,6 +219,20 @@ namespace Log4NetDemo.Util
                 LogLog.Error(declaringType, "Exception while reading ConfigurationSettings. Check your .config file is well formed XML.", ex);
             }
             return null;
+        }
+
+        /// <summary>
+        /// 创建一个初始容量的 不区分大小写 的哈希表
+        /// </summary>
+        /// <returns></returns>
+        public static Hashtable CreateCaseInsensitiveHashtable()
+        {
+            return new Hashtable(StringComparer.OrdinalIgnoreCase);
+        }
+
+        public static ArgumentOutOfRangeException CreateArgumentOutOfRangeException(string parameterName, object actualValue, string message)
+        {
+            return new ArgumentOutOfRangeException(parameterName, actualValue, message);
         }
 
         #endregion

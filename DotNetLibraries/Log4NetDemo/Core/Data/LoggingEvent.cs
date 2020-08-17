@@ -10,6 +10,9 @@ using System.Security.Principal;
 
 namespace Log4NetDemo.Core.Data
 {
+    /// <summary>
+    /// 日志数据缓存结构体
+    /// </summary>
     public struct LoggingEventData
     {
         public string LoggerName;
@@ -56,6 +59,9 @@ namespace Log4NetDemo.Core.Data
         public PropertiesDictionary Properties;
     }
 
+    /// <summary>
+    /// 标志 日志字段 枚举
+    /// </summary>
     [Flags]
     public enum FixFlags
     {
@@ -148,6 +154,9 @@ namespace Log4NetDemo.Core.Data
         Partial = Message | ThreadName | Exception | Domain | Properties,
     }
 
+    /// <summary>
+    /// 表示完整的日志数据的类
+    /// </summary>
     [Serializable]
     public class LoggingEvent : ISerializable
     {
@@ -494,7 +503,9 @@ namespace Log4NetDemo.Core.Data
 
         public LoggingEventData GetLoggingEventData(FixFlags fixFlags)
         {
+            // 设置 FixFlag 的时候，顺便把数据全部缓存在 m_data 的属性字典里了，所以这里可以直接返回 m_data
             Fix = fixFlags;
+
             return m_data;
         }
 

@@ -3,9 +3,12 @@
 namespace Log4NetDemo.Appender
 {
     /// <summary>
-    /// 实现这个接口，以特定的方式记录日志
+    /// 日志处理接口
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// 实现这个接口，以特定的方式记录日志
+    /// </para>
 	/// <para>
 	/// Implementors should consider extending the <see cref="AppenderSkeleton"/>
 	/// class which provides a default implementation of this interface.

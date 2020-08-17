@@ -1,24 +1,31 @@
 ﻿using Log4NetDemo.Core.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Log4NetDemo.Core.Interface;
 
 namespace Log4NetDemo.Filter
 {
-    public class FilterSkeleton : IFilter
+    /// <summary>
+    /// 过滤器基类
+    /// </summary>
+    public abstract class FilterSkeleton : IFilter, IOptionHandler
     {
-        public IFilter Next { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        #region Implementation of IFilter
 
-        public void ActivateOptions()
+        private IFilter m_next;
+        /// <summary>
+        /// Points to the next filter in the filter chain.
+        /// </summary>
+        public IFilter Next { get => m_next; set => m_next = value; }
+
+        public abstract FilterDecision Decide(LoggingEvent loggingEvent);
+
+        #endregion
+
+        #region Implementation of IOptionHandler
+
+        public virtual void ActivateOptions()
         {
-            throw new NotImplementedException();
         }
 
-        public FilterDecision Decide(LoggingEvent loggingEvent)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

@@ -1,10 +1,25 @@
 ﻿using Log4NetDemo.Core.Data;
+using Log4NetDemo.Core.Interface;
 using System;
 using System.IO;
 
 namespace Log4NetDemo.Layout
 {
-    public interface ILayout
+    /// <summary>
+    /// 日志输出布局接口
+    /// </summary>
+    /// <remarks>
+	/// <para>
+	/// An <see cref="ILayout"/> object is used to format a <see cref="LoggingEvent"/>
+	/// as text. The <see cref="Format(TextWriter,LoggingEvent)"/> method is called by an
+	/// appender to transform the <see cref="LoggingEvent"/> into a string.
+	/// </para>
+	/// <para>
+	/// The layout can also supply <see cref="Header"/> and <see cref="Footer"/>
+	/// text that is appender before any events and after all the events respectively.
+	/// </para>
+	/// </remarks>
+    public interface ILayout : IOptionHandler
     {
         /// <summary>
         /// Implement this method to create your own layout format.
@@ -51,6 +66,7 @@ namespace Log4NetDemo.Layout
         /// <para>
         /// The Header text will be appended before any logging events
         /// are formatted and appended.
+        /// 在前面追加的文本
         /// </para>
         /// </remarks>
         string Header { get; }
@@ -63,6 +79,7 @@ namespace Log4NetDemo.Layout
         /// <para>
         /// The Footer text will be appended after all the logging events
         /// have been formatted and appended.
+        /// 在后面追加的文本
         /// </para>
         /// </remarks>
         string Footer { get; }
@@ -77,6 +94,7 @@ namespace Log4NetDemo.Layout
         /// <see cref="LoggingEvent"/>, then the layout should return
         /// <c>false</c>. Otherwise, if the layout ignores the exception
         /// object, then the layout should return <c>true</c>.
+        /// 是否忽略异常
         /// </para>
         /// </remarks>
         bool IgnoresException { get; }

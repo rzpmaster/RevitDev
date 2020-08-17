@@ -1,7 +1,7 @@
 ﻿using Log4NetDemo.Core.Interface;
 using System;
 
-namespace Log4NetDemo
+namespace Log4NetDemo.Core
 {
     /// <summary>
     /// 日志类，具有不同等级的日志方法
