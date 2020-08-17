@@ -1,10 +1,13 @@
 ﻿namespace Log4NetDemo.Core.Interface
 {
     /// <summary>
-    /// Logger包装器
+    /// 所有 Logger 包装器的基类
     /// </summary>
     public interface ILoggerWrapper
     {
+        /// <summary>
+        /// 要包装的对象
+        /// </summary>
         ILogger Logger { get; }
     }
 }

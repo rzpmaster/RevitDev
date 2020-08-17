@@ -63,12 +63,14 @@
     <Compile Include="Core\Data\LoggingEvent.cs" />
     <Compile Include="Appender\ErrorHandler\IErrorHandler.cs" />
     <Compile Include="Core\Data\Map\LevelMap.cs" />
+    <Compile Include="Core\Data\Map\WrapperMap.cs" />
     <Compile Include="Core\Interface\IFixingRequired.cs" />
     <Compile Include="Core\Interface\IFlushable.cs" />
     <Compile Include="Core\Interface\ILogger.cs" />
     <Compile Include="Core\Interface\ILoggerWrapper.cs" />
     <Compile Include="Core\Interface\IOptionHandler.cs" />
     <Compile Include="Core\LoggerWrapperImpl.cs" />
+    <Compile Include="Core\LogManager.cs" />
     <Compile Include="Filter\FilterDecision.cs" />
     <Compile Include="Filter\FilterSkeleton.cs" />
     <Compile Include="Filter\IFilter.cs" />
@@ -79,9 +81,12 @@
     <Compile Include="LoggerManager.cs" />
     <Compile Include="ObjectRenderer\RendererMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Hierarchy\Hierarchy.cs" />
     <Compile Include="Repository\ILoggerRepository.cs" />
     <Compile Include="Repository\IRepositorySelector.cs" />
+    <Compile Include="Repository\LoggerRepositorySkeleton.cs" />
     <Compile Include="Util\CompositeProperties.cs" />
+    <Compile Include="Util\EmptyCollection.cs" />
     <Compile Include="Util\LogLog.cs" />
     <Compile Include="Util\OptionConverter.cs" />
     <Compile Include="Util\PropertiesDictionary.cs" />
