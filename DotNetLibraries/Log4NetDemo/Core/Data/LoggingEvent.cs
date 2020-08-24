@@ -2,6 +2,7 @@
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.Repository;
 using Log4NetDemo.Util;
+using Log4NetDemo.Util.Collections;
 using System;
 using System.Collections;
 using System.IO;

@@ -14,7 +14,7 @@ namespace Log4NetDemo.Core.Data.Map
     /// <remarks>
     /// <para>
     /// Mapping between string name and <see cref="Level"/> object.
-    /// This mapping is held separately for each <see cref="Log4NetDemo.Repository.ILoggerRepository"/>.
+    /// This mapping is held separately for each <see cref="Repository.ILoggerRepository"/>.
     /// The level name is case insensitive.
     /// </para>
     /// </remarks>

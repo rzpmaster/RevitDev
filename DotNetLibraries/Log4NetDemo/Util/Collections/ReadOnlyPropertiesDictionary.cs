@@ -3,7 +3,7 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace Log4NetDemo.Util
+namespace Log4NetDemo.Util.Collections
 {
     /// <summary>
     /// key: string value: object

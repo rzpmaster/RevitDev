@@ -17,6 +17,6 @@ namespace Log4NetDemo
         }
 
         private readonly static Type declaringType = typeof(LoggerManager);
-        private static IRepositorySelector s_repositorySelector;
+        //private static IRepositorySelector s_repositorySelector;
     }
 }

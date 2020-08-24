@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appender\AppenderSkeleton.cs" />
+    <Compile Include="Appender\BufferingAppenderSkeleton.cs" />
     <Compile Include="Appender\ErrorHandler\ErrorCode.cs" />
     <Compile Include="Appender\ErrorHandler\OnlyOnceErrorHandler.cs" />
     <Compile Include="Appender\IAppender.cs" />
@@ -79,19 +80,23 @@
     <Compile Include="Layout\LayoutSkeleton.cs" />
     <Compile Include="Core\LogImpl.cs" />
     <Compile Include="LoggerManager.cs" />
+    <Compile Include="ObjectRenderer\DefaultRenderer.cs" />
+    <Compile Include="ObjectRenderer\IObjectRenderer.cs" />
     <Compile Include="ObjectRenderer\RendererMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DefaultRepositorySelector.cs" />
     <Compile Include="Repository\Hierarchy\Hierarchy.cs" />
     <Compile Include="Repository\ILoggerRepository.cs" />
     <Compile Include="Repository\IRepositorySelector.cs" />
     <Compile Include="Repository\LoggerRepositorySkeleton.cs" />
+    <Compile Include="Util\Collections\NullEnumerator.cs" />
     <Compile Include="Util\CompositeProperties.cs" />
-    <Compile Include="Util\EmptyCollection.cs" />
+    <Compile Include="Util\Collections\EmptyCollection.cs" />
     <Compile Include="Util\LogLog.cs" />
     <Compile Include="Util\OptionConverter.cs" />
-    <Compile Include="Util\PropertiesDictionary.cs" />
+    <Compile Include="Util\Collections\PropertiesDictionary.cs" />
     <Compile Include="Util\PropertyEntry.cs" />
-    <Compile Include="Util\ReadOnlyPropertiesDictionary.cs" />
+    <Compile Include="Util\Collections\ReadOnlyPropertiesDictionary.cs" />
     <Compile Include="Util\ReusableStringWriter.cs" />
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\SystemStringFormat.cs" />

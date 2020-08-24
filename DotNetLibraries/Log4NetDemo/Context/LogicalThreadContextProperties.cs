@@ -1,4 +1,5 @@
 ﻿using Log4NetDemo.Util;
+using Log4NetDemo.Util.Collections;
 using System;
 using System.Runtime.Remoting.Messaging;
 using System.Security;

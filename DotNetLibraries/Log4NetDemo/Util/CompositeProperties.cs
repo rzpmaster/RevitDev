@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Log4NetDemo.Util.Collections;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Log4NetDemo.Util
