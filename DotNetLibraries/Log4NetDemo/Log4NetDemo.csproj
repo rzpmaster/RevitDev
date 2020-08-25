@@ -48,6 +48,11 @@
     <Compile Include="Appender\ErrorHandler\OnlyOnceErrorHandler.cs" />
     <Compile Include="Appender\IAppender.cs" />
     <Compile Include="Appender\IBulkAppender.cs" />
+    <Compile Include="Configration\Attributes\AliasRepositoryAttribute.cs" />
+    <Compile Include="Configration\Attributes\ConfiguratorAttribute.cs" />
+    <Compile Include="Configration\Attributes\RepositoryAttribute.cs" />
+    <Compile Include="Configration\IXmlRepositoryConfigurator.cs" />
+    <Compile Include="Configration\XmlConfigurator.cs" />
     <Compile Include="Context\ContextPropertiesBase.cs" />
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="Context\GlobalContextProperties.cs" />

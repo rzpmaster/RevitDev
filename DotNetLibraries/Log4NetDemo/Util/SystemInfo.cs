@@ -235,6 +235,53 @@ namespace Log4NetDemo.Util
             return new ArgumentOutOfRangeException(parameterName, actualValue, message);
         }
 
+        /// <summary>
+        /// 返回程序集的位置信息
+        /// </summary>
+        /// <param name="myAssembly"></param>
+        /// <returns></returns>
+        public static string AssemblyLocationInfo(Assembly myAssembly)
+        {
+            if (myAssembly.GlobalAssemblyCache)
+            {
+                return "Global Assembly Cache";
+            }
+            else
+            {
+                try
+                {
+                    if (myAssembly.IsDynamic)
+                    {
+                        return "Dynamic Assembly";
+                    }
+                    else
+                    {
+                        // This call requires FileIOPermission for access to the path if we don't have permission then we just ignore it and carry on.
+                        // 需要相关权限
+                        return myAssembly.Location;
+                    }
+                }
+                catch (NotSupportedException)
+                {
+                    // The location information may be unavailable for dynamic assemblies and a NotSupportedException is thrown in those cases. See: http://msdn.microsoft.com/de-de/library/system.reflection.assembly.location.aspx
+                    // 位置信息可能对动态程序集不可用，在这些情况下会引发NotSupportedException
+                    return "Dynamic Assembly";
+                }
+                catch (TargetInvocationException ex)
+                {
+                    return "Location Detect Failed (" + ex.Message + ")";
+                }
+                catch (ArgumentException ex)
+                {
+                    return "Location Detect Failed (" + ex.Message + ")";
+                }
+                catch (System.Security.SecurityException)
+                {
+                    return "Location Permission Denied";
+                }
+            }
+        }
+
         #endregion
 
         #region Private Static Fields
