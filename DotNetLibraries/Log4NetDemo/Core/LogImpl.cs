@@ -1,14 +1,9 @@
 ﻿using Log4NetDemo.Core.Data;
-using Log4NetDemo.Core.Data.Map;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.Repository;
 using Log4NetDemo.Util;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Log4NetDemo.Core
 {
@@ -17,7 +12,7 @@ namespace Log4NetDemo.Core
         public LogImpl(ILogger logger) : base(logger)
         {
             // Listen for changes to the repository
-            //logger.Repository.ConfigurationChanged += new LoggerRepositoryConfigurationChangedEventHandler(LoggerRepositoryConfigurationChanged);
+            logger.Repository.ConfigurationChanged += new LoggerRepositoryConfigurationChangedEventHandler(LoggerRepositoryConfigurationChanged);
 
             // load the current levels
             ReloadLevels(logger.Repository);

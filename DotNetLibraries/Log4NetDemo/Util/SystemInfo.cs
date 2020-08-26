@@ -282,6 +282,79 @@ namespace Log4NetDemo.Util
             }
         }
 
+        public static Type GetTypeFromString(string typeName, bool throwOnError, bool ignoreCase)
+        {
+            return GetTypeFromString(Assembly.GetCallingAssembly(), typeName, throwOnError, ignoreCase);
+        }
+
+        public static Type GetTypeFromString(Assembly relativeAssembly, string typeName, bool throwOnError, bool ignoreCase)
+        {
+            // Check if the type name specifies the assembly name
+            if (typeName.IndexOf(',') == -1)
+            {
+                //LogLog.Debug(declaringType, "SystemInfo: Loading type ["+typeName+"] from assembly ["+relativeAssembly.FullName+"]");
+
+                // Attempt to lookup the type from the relativeAssembly
+                Type type = relativeAssembly.GetType(typeName, false, ignoreCase);
+                if (type != null)
+                {
+                    // Found type in relative assembly
+                    //LogLog.Debug(declaringType, "SystemInfo: Loaded type ["+typeName+"] from assembly ["+relativeAssembly.FullName+"]");
+                    return type;
+                }
+
+                Assembly[] loadedAssemblies = null;
+                try
+                {
+                    loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                }
+                catch (System.Security.SecurityException)
+                {
+                    // Insufficient permissions to get the list of loaded assemblies
+                }
+
+                if (loadedAssemblies != null)
+                {
+                    Type fallback = null;
+                    // Search the loaded assemblies for the type
+                    foreach (Assembly assembly in loadedAssemblies)
+                    {
+                        Type t = assembly.GetType(typeName, false, ignoreCase);
+                        if (t != null)
+                        {
+                            // Found type in loaded assembly
+                            LogLog.Debug(declaringType, "Loaded type [" + typeName + "] from assembly [" + assembly.FullName + "] by searching loaded assemblies.");
+                            if (assembly.GlobalAssemblyCache)
+                            {
+                                fallback = t;
+                            }
+                            else
+                            {
+                                return t;
+                            }
+                        }
+                    }
+                    if (fallback != null)
+                    {
+                        return fallback;
+                    }
+                }
+
+                // Didn't find the type
+                if (throwOnError)
+                {
+                    throw new TypeLoadException("Could not load type [" + typeName + "]. Tried assembly [" + relativeAssembly.FullName + "] and all loaded assemblies");
+                }
+                return null;
+            }
+            else
+            {
+                // Includes explicit assembly name
+                //LogLog.Debug(declaringType, "SystemInfo: Loading type ["+typeName+"] from global Type");
+                return Type.GetType(typeName, throwOnError, ignoreCase);
+            }
+        }
+
         #endregion
 
         #region Private Static Fields

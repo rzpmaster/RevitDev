@@ -1,5 +1,4 @@
 ﻿using Log4NetDemo.Core.Data;
-using Log4NetDemo.Core.Data.Map;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.ObjectRenderer;
 using Log4NetDemo.Util;

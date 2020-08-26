@@ -1,10 +1,8 @@
 ﻿using Log4NetDemo.Appender;
 using Log4NetDemo.Core;
 using Log4NetDemo.Core.Data;
-using Log4NetDemo.Core.Data.Map;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.ObjectRenderer;
-using Log4NetDemo.Util;
 using Log4NetDemo.Util.Collections;
 using System;
 using System.Collections;

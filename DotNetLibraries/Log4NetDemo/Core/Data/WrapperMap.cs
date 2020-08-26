@@ -2,12 +2,8 @@
 using Log4NetDemo.Repository;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Log4NetDemo.Core.Data.Map
+namespace Log4NetDemo.Core.Data
 {
     /// <summary>
     /// 包装器创建事件委托
