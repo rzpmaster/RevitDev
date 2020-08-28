@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemo", "DotNetLibrarie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetDemo", "DotNetLibraries\Log4NetDemo\Log4NetDemo.csproj", "{5F62BA95-EDD9-401F-B68A-0FB19B95EE45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHanding", "RvtSDK\Basics\ErrorHanding\ErrorHanding.csproj", "{EA838268-4F69-43D7-B254-DF1ECCFFDB65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,10 @@ Global
 		{5F62BA95-EDD9-401F-B68A-0FB19B95EE45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F62BA95-EDD9-401F-B68A-0FB19B95EE45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F62BA95-EDD9-401F-B68A-0FB19B95EE45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA838268-4F69-43D7-B254-DF1ECCFFDB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA838268-4F69-43D7-B254-DF1ECCFFDB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA838268-4F69-43D7-B254-DF1ECCFFDB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA838268-4F69-43D7-B254-DF1ECCFFDB65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -209,6 +215,7 @@ Global
 		{53536F73-B4E3-4BEA-8DA2-42B9FEF20B44} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{DA397655-A3E9-464A-B385-0D134E00151C} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{5F62BA95-EDD9-401F-B68A-0FB19B95EE45} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
+		{EA838268-4F69-43D7-B254-DF1ECCFFDB65} = {A9DE326D-E88B-4EA8-951D-9C39E8E8EFF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
