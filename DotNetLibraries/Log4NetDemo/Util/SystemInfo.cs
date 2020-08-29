@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Configuration;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 
@@ -222,20 +223,6 @@ namespace Log4NetDemo.Util
         }
 
         /// <summary>
-        /// 创建一个初始容量的 不区分大小写 的哈希表
-        /// </summary>
-        /// <returns></returns>
-        public static Hashtable CreateCaseInsensitiveHashtable()
-        {
-            return new Hashtable(StringComparer.OrdinalIgnoreCase);
-        }
-
-        public static ArgumentOutOfRangeException CreateArgumentOutOfRangeException(string parameterName, object actualValue, string message)
-        {
-            return new ArgumentOutOfRangeException(parameterName, actualValue, message);
-        }
-
-        /// <summary>
         /// 返回程序集的位置信息
         /// </summary>
         /// <param name="myAssembly"></param>
@@ -282,9 +269,39 @@ namespace Log4NetDemo.Util
             }
         }
 
+        public static string AssemblyShortName(Assembly myAssembly)
+        {
+            string name = myAssembly.FullName;
+            int offset = name.IndexOf(',');
+            if (offset > 0)
+            {
+                name = name.Substring(0, offset);
+            }
+            return name.Trim();
+
+            // TODO: Do we need to unescape the assembly name string? 
+            // Doc says '\' is an escape char but has this already been 
+            // done by the string loader?
+        }
+
+        public static string AssemblyFileName(Assembly myAssembly)
+        {
+            return System.IO.Path.GetFileName(myAssembly.Location);
+        }
+
+        public static string AssemblyQualifiedName(Type type)
+        {
+            return type.FullName + ", " + type.Assembly.FullName;
+        }
+
         public static Type GetTypeFromString(string typeName, bool throwOnError, bool ignoreCase)
         {
             return GetTypeFromString(Assembly.GetCallingAssembly(), typeName, throwOnError, ignoreCase);
+        }
+
+        public static Type GetTypeFromString(Type relativeType, string typeName, bool throwOnError, bool ignoreCase)
+        {
+            return GetTypeFromString(relativeType.Assembly, typeName, throwOnError, ignoreCase);
         }
 
         public static Type GetTypeFromString(Assembly relativeAssembly, string typeName, bool throwOnError, bool ignoreCase)
@@ -353,6 +370,130 @@ namespace Log4NetDemo.Util
                 //LogLog.Debug(declaringType, "SystemInfo: Loading type ["+typeName+"] from global Type");
                 return Type.GetType(typeName, throwOnError, ignoreCase);
             }
+        }
+
+        public static string ConvertToFullPath(string path)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
+            string baseDirectory = "";
+            try
+            {
+                string applicationBaseDirectory = SystemInfo.ApplicationBaseDirectory;
+                if (applicationBaseDirectory != null)
+                {
+                    // applicationBaseDirectory may be a URI not a local file path
+                    Uri applicationBaseDirectoryUri = new Uri(applicationBaseDirectory);
+                    if (applicationBaseDirectoryUri.IsFile)
+                    {
+                        baseDirectory = applicationBaseDirectoryUri.LocalPath;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore URI exceptions & SecurityExceptions from SystemInfo.ApplicationBaseDirectory
+            }
+
+            if (baseDirectory != null && baseDirectory.Length > 0)
+            {
+                // Note that Path.Combine will return the second path if it is rooted
+                return Path.GetFullPath(Path.Combine(baseDirectory, path));
+            }
+            return Path.GetFullPath(path);
+        }
+
+        /// <summary>
+        /// 创建一个初始容量的 不区分大小写 的哈希表
+        /// </summary>
+        /// <returns></returns>
+        public static Hashtable CreateCaseInsensitiveHashtable()
+        {
+            return new Hashtable(StringComparer.OrdinalIgnoreCase);
+        }
+
+        public static ArgumentOutOfRangeException CreateArgumentOutOfRangeException(string parameterName, object actualValue, string message)
+        {
+            return new ArgumentOutOfRangeException(parameterName, actualValue, message);
+        }
+
+        public static Guid NewGuid()
+        {
+            return Guid.NewGuid();
+        }
+
+        public static Boolean EqualsIgnoringCase(String a, String b)
+        {
+            return String.Equals(a, b, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool TryParse(string s, out int val)
+        {
+            // Initialise out param
+            val = 0;
+
+            try
+            {
+                double doubleVal;
+                if (Double.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out doubleVal))
+                {
+                    val = Convert.ToInt32(doubleVal);
+                    return true;
+                }
+            }
+            catch
+            {
+                // Ignore exception, just return false
+            }
+
+            return false;
+        }
+
+        public static bool TryParse(string s, out long val)
+        {
+            // Initialise out param
+            val = 0;
+
+            try
+            {
+                double doubleVal;
+                if (Double.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out doubleVal))
+                {
+                    val = Convert.ToInt64(doubleVal);
+                    return true;
+                }
+            }
+            catch
+            {
+                // Ignore exception, just return false
+            }
+
+            return false;
+        }
+
+        public static bool TryParse(string s, out short val)
+        {
+            // Initialise out param
+            val = 0;
+
+            try
+            {
+                double doubleVal;
+                if (Double.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out doubleVal))
+                {
+                    val = Convert.ToInt16(doubleVal);
+                    return true;
+                }
+            }
+            catch
+            {
+                // Ignore exception, just return false
+            }
+
+            return false;
         }
 
         #endregion

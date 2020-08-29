@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appender\AppenderAttach\AppenderAttachedImpl.cs" />
+    <Compile Include="Appender\AppenderAttach\IAppenderAttachable.cs" />
     <Compile Include="Appender\AppenderSkeleton.cs" />
     <Compile Include="Appender\BufferingAppenderSkeleton.cs" />
     <Compile Include="Appender\ErrorHandler\ErrorCode.cs" />
@@ -99,15 +101,27 @@
     <Compile Include="Repository\ILoggerRepository.cs" />
     <Compile Include="Repository\IRepositorySelector.cs" />
     <Compile Include="Repository\IXmlRepositoryConfigurator.cs" />
+    <Compile Include="Repository\LoggerRepositoryEventHandler.cs" />
     <Compile Include="Repository\LoggerRepositorySkeleton.cs" />
+    <Compile Include="Appender\AppenderAttach\AppenderCollection.cs" />
     <Compile Include="Util\Collections\NullEnumerator.cs" />
     <Compile Include="Util\CompositeProperties.cs" />
     <Compile Include="Util\Collections\EmptyCollection.cs" />
+    <Compile Include="Util\Converters\ConversionNotSupportedException.cs" />
+    <Compile Include="Util\Converters\ConverterRegistry.cs" />
+    <Compile Include="Util\Converters\IConvertFrom.cs" />
+    <Compile Include="Util\Converters\IConvertTo.cs" />
+    <Compile Include="Util\Converters\TypeConverters\BooleanConverter.cs" />
+    <Compile Include="Util\Converters\TypeConverters\EncodingConverter.cs" />
+    <Compile Include="Util\Converters\TypeConverters\IPAddressConverter.cs" />
+    <Compile Include="Util\Converters\TypeConverters\TypeConverter.cs" />
+    <Compile Include="Util\Converters\TypeConverters\TypeConverterAttribute.cs" />
     <Compile Include="Util\LogLog.cs" />
-    <Compile Include="Util\OptionConverter.cs" />
+    <Compile Include="Util\Converters\OptionConverter.cs" />
     <Compile Include="Util\Collections\PropertiesDictionary.cs" />
     <Compile Include="Util\PropertyEntry.cs" />
     <Compile Include="Util\Collections\ReadOnlyPropertiesDictionary.cs" />
+    <Compile Include="Util\ReaderWriterLock.cs" />
     <Compile Include="Util\ReusableStringWriter.cs" />
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\SystemStringFormat.cs" />
