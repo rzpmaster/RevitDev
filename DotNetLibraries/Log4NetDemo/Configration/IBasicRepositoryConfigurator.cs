@@ -1,4 +1,4 @@
-﻿namespace Log4NetDemo.Repository
+﻿namespace Log4NetDemo.Configration
 {
     public interface IBasicRepositoryConfigurator
     {

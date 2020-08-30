@@ -1,5 +1,6 @@
 ﻿using Log4NetDemo.Appender;
 using Log4NetDemo.Appender.AppenderAttach;
+using Log4NetDemo.Configration;
 using Log4NetDemo.Core.Data;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.Util;

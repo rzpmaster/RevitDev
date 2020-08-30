@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Log4NetDemo.Util
+namespace Log4NetDemo.Util.Collections
 {
     /// <summary>
     /// 提供对嵌套属性字典的压平操作

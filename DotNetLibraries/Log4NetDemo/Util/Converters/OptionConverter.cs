@@ -1,4 +1,4 @@
-﻿using Log4NetDemo.Repository;
+﻿using Log4NetDemo.Core.Data;
 using Log4NetDemo.Util.Converters;
 using System;
 using System.Globalization;

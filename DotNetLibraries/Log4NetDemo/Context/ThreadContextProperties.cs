@@ -1,5 +1,4 @@
-﻿using Log4NetDemo.Util;
-using Log4NetDemo.Util.Collections;
+﻿using Log4NetDemo.Util.Collections;
 using System;
 
 namespace Log4NetDemo.Context

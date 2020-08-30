@@ -3,14 +3,10 @@ using Log4NetDemo.Repository;
 using Log4NetDemo.Util;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Log4NetDemo.Configration
