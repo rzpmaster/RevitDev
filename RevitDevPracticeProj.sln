@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHanding", "RvtSDK\Basi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateViews", "RvtSDK\Views\DuplicateViews\DuplicateViews.csproj", "{BD6543DD-4CBF-4193-958C-DBA299927AC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetDemo.Test", "DotNetLibraries\Log4NetDemo.Test\Log4NetDemo.Test.csproj", "{C2F37E9A-84AE-43B7-8DAE-1504911427DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{BD6543DD-4CBF-4193-958C-DBA299927AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD6543DD-4CBF-4193-958C-DBA299927AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD6543DD-4CBF-4193-958C-DBA299927AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F37E9A-84AE-43B7-8DAE-1504911427DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F37E9A-84AE-43B7-8DAE-1504911427DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F37E9A-84AE-43B7-8DAE-1504911427DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F37E9A-84AE-43B7-8DAE-1504911427DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +229,7 @@ Global
 		{5F62BA95-EDD9-401F-B68A-0FB19B95EE45} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{EA838268-4F69-43D7-B254-DF1ECCFFDB65} = {A9DE326D-E88B-4EA8-951D-9C39E8E8EFF6}
 		{BD6543DD-4CBF-4193-958C-DBA299927AC9} = {618EB1D3-792E-4989-8B3C-284D9F760E70}
+		{C2F37E9A-84AE-43B7-8DAE-1504911427DF} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
