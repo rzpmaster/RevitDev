@@ -1,8 +1,8 @@
-﻿using Log4NetDemo.Util;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using Log4NetDemo.Util;
+using NUnit.Framework;
 
 namespace Log4NetDemo.Test.Util
 {
@@ -24,11 +24,9 @@ namespace Log4NetDemo.Test.Util
             return Expression.Lambda<Func<string>>(methodCall, new ParameterExpression[0]).Compile();
         }
 
-        [Test]
-        public void TestAssemblyLocationInfoMethod()
+        public static string TestAssemblyLocationInfoMethod()
         {
-            var location = SystemInfo.AssemblyLocationInfo(Assembly.GetCallingAssembly());
-            Assert.That(location, Is.EqualTo(42), "Some useful error message");
+            return SystemInfo.AssemblyLocationInfo(Assembly.GetCallingAssembly());
         }
 
         [Test]
@@ -36,13 +34,13 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("log4net.Tests.Util.SystemInfoTest,log4net.Tests", false, false);
+            t = GetTypeFromString("Log4NetDemo.Test.Util.SystemInfoTest,Log4NetDemo.Test", false, false);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case sensitive type load");
 
-            t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST,log4net.Tests", false, true);
+            t = GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST,LOG4NETDEMO.TEST", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load caps");
 
-            t = GetTypeFromString("log4net.tests.util.systeminfotest,log4net.Tests", false, true);
+            t = GetTypeFromString("log4netdemo.test.util.systeminfotest,Log4NetDemo.Test", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load lower");
         }
 
@@ -52,10 +50,10 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST,LOG4NET.TESTS", false, true);
+            t = GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST,LOG4NETDEMO.TEST", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load caps");
 
-            t = GetTypeFromString("log4net.tests.util.systeminfotest,log4net.tests", false, true);
+            t = GetTypeFromString("log4netdemo.test.util.systeminfotest,log4netdemo.test", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load lower");
         }
 
@@ -64,13 +62,13 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("log4net.Tests.Util.SystemInfoTest", false, false);
+            t = GetTypeFromString("Log4NetDemo.Test.Util.SystemInfoTest", false, false);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case sensitive type load");
 
-            t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST", false, true);
+            t = GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load caps");
 
-            t = GetTypeFromString("log4net.tests.util.systeminfotest", false, true);
+            t = GetTypeFromString("log4netdemo.test.util.systeminfotest", false, true);
             Assert.AreSame(typeof(SystemInfoTest), t, "Test explicit case in-sensitive type load lower");
         }
 
@@ -79,15 +77,15 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("log4net.Util.SystemInfo", false, false);
+            t = GetTypeFromString("Log4NetDemo.Util.SystemInfo", false, false);
             Assert.AreSame(typeof(SystemInfo), t,
                                        string.Format("Test explicit case sensitive type load found {0} rather than {1}",
                                                      t.AssemblyQualifiedName, typeof(SystemInfo).AssemblyQualifiedName));
 
-            t = GetTypeFromString("LOG4NET.UTIL.SYSTEMINFO", false, true);
+            t = GetTypeFromString("LOG4NETDEMO.UTIL.SYSTEMINFO", false, true);
             Assert.AreSame(typeof(SystemInfo), t, "Test explicit case in-sensitive type load caps");
 
-            t = GetTypeFromString("log4net.util.systeminfo", false, true);
+            t = GetTypeFromString("log4netdemo.util.systeminfo", false, true);
             Assert.AreSame(typeof(SystemInfo), t, "Test explicit case in-sensitive type load lower");
         }
 
@@ -96,11 +94,11 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST,LOG4NET.TESTS", false, false);
+            t = GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST,LOG4NETDEMO.TEST", false, false);
             Assert.AreSame(null, t, "Test explicit case sensitive fails type load");
 
             //t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST,LOG4NET.TESTS", true, false);
-            Assert.Throws<TypeLoadException>(() => GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST,LOG4NET.TESTS", true, false));
+            Assert.Throws<TypeLoadException>(() => GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST,LOG4NETDEMO.TEST", true, false));
         }
 
         [Test]
@@ -108,11 +106,11 @@ namespace Log4NetDemo.Test.Util
         {
             Type t;
 
-            t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST", false, false);
+            t = GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST", false, false);
             Assert.AreSame(null, t, "Test explicit case sensitive fails type load");
 
             //t = GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST", true, false);
-            Assert.Throws<TypeLoadException>(() => GetTypeFromString("LOG4NET.TESTS.UTIL.SYSTEMINFOTEST", true, false));
+            Assert.Throws<TypeLoadException>(() => GetTypeFromString("LOG4NETDEMO.TEST.UTIL.SYSTEMINFOTEST", true, false));
         }
 
         private Type GetTypeFromString(string typeName, bool throwOnError, bool ignoreCase)

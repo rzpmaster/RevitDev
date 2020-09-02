@@ -1,7 +1,7 @@
-﻿using Log4NetDemo.Util;
-using NUnit.Framework;
-using System.Collections;
+﻿using System.Collections;
 using System.Diagnostics;
+using Log4NetDemo.Util;
+using NUnit.Framework;
 
 namespace Log4NetDemo.Test.Util
 {
