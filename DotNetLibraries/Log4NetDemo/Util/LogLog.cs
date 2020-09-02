@@ -23,11 +23,6 @@ namespace Log4NetDemo.Util
 
     public class LogLog
     {
-        /// <summary>
-        /// 接受到消息时触发
-        /// </summary>
-        public static event LogReceivedEventHandler LogReceived;
-
         public LogLog(Type source, string prefix, string message, Exception exception)
         {
             timeStampUtc = DateTime.UtcNow;
@@ -57,41 +52,12 @@ namespace Log4NetDemo.Util
             }
         }
 
-        #region Public Static Properties
+        #region Public Static Event
 
         /// <summary>
-        /// 是否启用，默认 false ，可配置
+        /// 接受到消息时触发
         /// </summary>
-        public static bool InternalDebugging
-        {
-            get { return s_debugEnabled; }
-            set { s_debugEnabled = value; }
-        }
-
-        /// <summary>
-        /// 是否静默模式，默认 false ，可配置。
-        /// </summary>
-        /// <remarks>
-        /// 如果为 true 可覆盖 InternalDebugging
-        /// </remarks>
-        public static bool QuietMode
-        {
-            get { return s_quietMode; }
-            set { s_quietMode = value; }
-        }
-
-        /// <summary>
-        /// 是否输出消息
-        /// </summary>
-        public static bool EmitInternalMessages
-        {
-            get { return s_emitInternalMessages; }
-            set { s_emitInternalMessages = value; }
-        }
-
-        #endregion
-
-        #region Public Static Mehtods
+        public static event LogReceivedEventHandler LogReceived;
 
         /// <summary>
         /// 当接受到消息是触发
@@ -102,11 +68,64 @@ namespace Log4NetDemo.Util
         /// <param name="exception"></param>
         public static void OnLogReceived(Type source, string prefix, string message, Exception exception)
         {
-            if (LogReceived != null)
-            {
-                LogReceived(null, new LogReceivedEventArgs(new LogLog(source, prefix, message, exception)));
-            }
+            LogReceived?.Invoke(null, new LogReceivedEventArgs(new LogLog(source, prefix, message, exception)));
         }
+
+        #endregion
+
+        #region Public Static Properties
+
+        /// <summary>
+        /// 是否开启 Debug 等级的日志
+        /// </summary>
+        public static bool InternalDebugging
+        {
+            get { return s_debugEnabled; }
+            set { s_debugEnabled = value; }
+        }
+
+        /// <summary>
+        /// 是否静默模式，如果为<value>true</value>,将不会记录任何消息
+        /// </summary>
+        public static bool QuietMode
+        {
+            get { return s_quietMode; }
+            set { s_quietMode = value; }
+        }
+
+        /// <summary>
+        /// 是否控制台输出日志消息
+        /// </summary>
+        public static bool EmitInternalMessages
+        {
+            get { return s_emitInternalMessages; }
+            set { s_emitInternalMessages = value; }
+        }
+
+        #endregion
+
+        #region private Static Fields
+
+        /// <summary>
+        /// 是否开启 Debug 等级的日志
+        /// </summary>
+        private static bool s_debugEnabled = false;
+        /// <summary>
+        /// 是否静默模式，如果为<value>true</value>,将不会记录任何消息
+        /// </summary>
+        private static bool s_quietMode = false;
+        /// <summary>
+        /// 是否在控制台上输出日志消息
+        /// </summary>
+        private static bool s_emitInternalMessages = true;
+
+        private const string PREFIX = "log4net: ";
+        private const string ERR_PREFIX = "log4net:ERROR ";
+        private const string WARN_PREFIX = "log4net:WARN ";
+
+        #endregion
+
+        #region Public Static Mehtods
 
         public static bool IsDebugEnabled
         {
@@ -215,59 +234,6 @@ namespace Log4NetDemo.Util
 
         #endregion
 
-        #region Public Properties
-
-        public Type Source
-        {
-            get { return source; }
-        }
-
-        public DateTime TimeStamp
-        {
-            get { return timeStampUtc.ToLocalTime(); }
-        }
-
-        public DateTime TimeStampUtc
-        {
-            get { return timeStampUtc; }
-        }
-
-        /// <summary>
-        /// 消息前缀
-        /// </summary>
-        /// <remarks>
-        /// "log4net: ", 
-        /// "log4net:ERROR ", 
-        /// "log4net:WARN "
-        /// </remarks>
-        public string Prefix
-        {
-            get { return prefix; }
-        }
-
-        public string Message
-        {
-            get { return message; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Optional. Will be null if no Exception was passed.
-        /// </remarks>
-        public Exception Exception
-        {
-            get { return exception; }
-        }
-
-        #endregion
-
-        public override string ToString()
-        {
-            return Prefix + Source.Name + ": " + Message;
-        }
-
         #region private Static Methods
 
         private static void EmitOutLine(string message)
@@ -298,35 +264,76 @@ namespace Log4NetDemo.Util
 
         #endregion
 
+        #region Public Instance Properties
+
+        public Type Source
+        {
+            get { return source; }
+        }
+
+        public DateTime TimeStamp
+        {
+            get { return timeStampUtc.ToLocalTime(); }
+        }
+
+        public DateTime TimeStampUtc
+        {
+            get { return timeStampUtc; }
+        }
+
+        /// <summary>
+        /// 消息前缀
+        /// </summary>
+        public string Prefix
+        {
+            get { return prefix; }
+        }
+
+        public string Message
+        {
+            get { return message; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Optional. Will be null if no Exception was passed.
+        /// </remarks>
+        public Exception Exception
+        {
+            get { return exception; }
+        }
+
+        #endregion
+
+        #region parvate Instance Fields
+
         private readonly Type source;
         private readonly DateTime timeStampUtc;
         private readonly string prefix;
         private readonly string message;
         private readonly Exception exception;
 
-        private static bool s_debugEnabled = false;
-        private static bool s_quietMode = false;
-        private static bool s_emitInternalMessages = true;
+        #endregion
 
-        private const string PREFIX = "log4net: ";
-        private const string ERR_PREFIX = "log4net:ERROR ";
-        private const string WARN_PREFIX = "log4net:WARN ";
+        public override string ToString()
+        {
+            return Prefix + Source.Name + ": " + Message;
+        }
 
         /// <summary>
-        /// 
+        /// 订阅事件，并存储消息
         /// </summary>
         public class LogReceivedAdapter : IDisposable
         {
             private readonly IList items;
-            private readonly LogReceivedEventHandler handler;
 
             public LogReceivedAdapter(IList items)
             {
                 this.items = items;
 
-                handler = new LogReceivedEventHandler(LogLog_LogReceived);
-
-                LogReceived += handler;
+                LogReceived += LogLog_LogReceived;
             }
 
             void LogLog_LogReceived(object source, LogReceivedEventArgs e)
@@ -334,6 +341,9 @@ namespace Log4NetDemo.Util
                 items.Add(e.LogLog);
             }
 
+            /// <summary>
+            /// 存储 的（订阅事件后发生的）日志消息
+            /// </summary>
             public IList Items
             {
                 get { return items; }
@@ -341,7 +351,7 @@ namespace Log4NetDemo.Util
 
             public void Dispose()
             {
-                LogReceived -= handler;
+                LogReceived -= LogLog_LogReceived;
             }
         }
     }

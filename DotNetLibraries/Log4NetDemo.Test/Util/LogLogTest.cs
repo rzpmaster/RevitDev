@@ -39,6 +39,8 @@ namespace Log4NetDemo.Test.Util
 
                 LogLog.Error(GetType(), "Hello");
                 LogLog.Error(GetType(), "World");
+
+                // 这里依然是两个消息，说明没有输出
                 Assert.AreEqual(2, listTraceListener.Count);
             }
             finally
