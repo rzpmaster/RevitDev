@@ -1,4 +1,4 @@
-﻿namespace Log4NetDemo.Core.Interface
+﻿namespace Log4NetDemo.Core
 {
     /// <summary>
     /// 所有 Logger 包装器的基类

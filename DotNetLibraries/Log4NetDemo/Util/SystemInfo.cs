@@ -223,7 +223,7 @@ namespace Log4NetDemo.Util
         }
 
         /// <summary>
-        /// 返回程序集的位置信息
+        /// 返回程序集的所在文件地址
         /// </summary>
         /// <param name="myAssembly"></param>
         /// <returns></returns>

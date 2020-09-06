@@ -1,26 +1,26 @@
-﻿using Log4NetDemo.Core.Interface;
+﻿using System;
+using System.Reflection;
+using Log4NetDemo.Core;
 using Log4NetDemo.Repository;
 using Log4NetDemo.Util;
-using System;
-using System.Reflection;
 
 namespace Log4NetDemo
 {
     /// <summary>
-    /// 控制 ILoggerRepository 的创建
+    /// 控制 ILoggerRepository 的创建,从而控制 ILog 创建
     /// </summary>
     /// <remarks>
     /// <para>This class is used by the wrapper managers (e.g. <see cref="Core.LogManager"/>)
-	/// to provide access to the <see cref="Core.Interface.ILogger"/> objects.</para>
+	/// to provide access to the <see cref="ILogger"/> objects.</para>
     /// <para>This manager also holds the <see cref="IRepositorySelector"/> that is used to
 	/// lookup and create repositories. The selector can be set either programmatically using
-	/// the <see cref="RepositorySelector"/> property, or by setting the <c>RepositorySelector</c> AppSetting in the applications config file to the fully qualified type name of the
+	/// the <see cref="IRepositorySelector"/> property, or by setting the <c>RepositorySelector</c> AppSetting in the applications config file to the fully qualified type name of the
 	/// selector to use. </para>
     /// </remarks>
     public sealed class LoggerManager
     {
         /// <summary>
-        /// 内部所有的方法都是通过这个 IRepositorySelector 调。
+        /// 内部所有的方法都是通过这个 IRepositorySelector 请求 IRepository ,然后在通过仓库请求 ILog 。
         /// </summary>
         private static IRepositorySelector s_repositorySelector;
 

@@ -1,8 +1,8 @@
-﻿using Log4NetDemo.Core.Data;
-using Log4NetDemo.Core.Interface;
-using Log4NetDemo.Util;
-using System;
+﻿using System;
 using System.Collections;
+using Log4NetDemo.Appender.Interface.Evaluator;
+using Log4NetDemo.Core.Data;
+using Log4NetDemo.Util;
 
 namespace Log4NetDemo.Appender
 {
@@ -22,6 +22,13 @@ namespace Log4NetDemo.Appender
 
         #region Public Instance Properties
 
+        /// <summary>
+        /// 指示是否是 Lossy 模式
+        /// </summary>
+        /// <remarks>
+        /// <para>如果为<value>false</value>，缓冲区满时，就会发送</para>
+        /// <para>如果为<value>true</value>，只有Evaluator满足才会发送</para>
+        /// </remarks>
         public bool Lossy
         {
             get { return m_lossy; }
@@ -46,6 +53,9 @@ namespace Log4NetDemo.Appender
             set { m_lossyEvaluator = value; }
         }
 
+        /// <summary>
+        /// 缓冲Appender 使用的  
+        /// </summary>
         virtual public FixFlags Fix
         {
             get { return m_fixFlags; }
@@ -88,12 +98,17 @@ namespace Log4NetDemo.Appender
             Flush(true);
         }
 
+        /// <summary>
+        /// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent)"/> method. 
+        /// </summary>
+        /// <param name="loggingEvent"></param>
         override protected void Append(LoggingEvent loggingEvent)
         {
             // If the buffer size is set to 1 or less then the buffer will be
             // sent immediately because there is not enough space in the buffer
             // to buffer up more than 1 event. Therefore as a special case
             // we don't use the buffer at all.
+            // 缓冲区的大小为 1 的话是不需要考虑缓存的，因为没有空间处理
             if (m_cb == null || m_bufferSize <= 1)
             {
                 // Only send the event if we are in non lossy mode or the event is a triggering event
@@ -119,6 +134,7 @@ namespace Log4NetDemo.Appender
                 loggingEvent.Fix = this.Fix;
 
                 // Add to the buffer, returns the event discarded from the buffer if there is no space remaining after the append
+                // 先缓存起来
                 LoggingEvent discardedLoggingEvent = m_cb.Append(loggingEvent);
 
                 if (discardedLoggingEvent != null)
@@ -165,7 +181,7 @@ namespace Log4NetDemo.Appender
 
         #endregion
 
-        #region Public Methods
+        #region Implementation of IFlushable
 
         public override bool Flush(int millisecondsTimeout)
         {
@@ -178,6 +194,10 @@ namespace Log4NetDemo.Appender
             Flush(false);
         }
 
+        /// <summary>
+        /// Flush the currently buffered events
+        /// </summary>
+        /// <param name="flushLossyBuffer">set to <c>true</c> to flush the buffer of lossy events</param>
         public virtual void Flush(bool flushLossyBuffer)
         {
             // This method will be called outside of the AppenderSkeleton DoAppend() method
@@ -232,6 +252,11 @@ namespace Log4NetDemo.Appender
 
         #region Protected Instance Methods
 
+        /// <summary>
+        /// 发送缓冲区里的日志消息给所有 Apeender
+        /// </summary>
+        /// <param name="firstLoggingEvent">原来在缓冲器中被挤出来的最古老的消息</param>
+        /// <param name="buffer">缓冲区的日志消息</param>
         virtual protected void SendFromBuffer(LoggingEvent firstLoggingEvent, CyclicBuffer buffer)
         {
             LoggingEvent[] bufferEvents = buffer.PopAll();
@@ -255,6 +280,10 @@ namespace Log4NetDemo.Appender
             }
         }
 
+        /// <summary>
+        /// 将所有消息发送给 Apender 处理
+        /// </summary>
+        /// <param name="events"></param>
         abstract protected void SendBuffer(LoggingEvent[] events);
 
         #endregion
@@ -269,6 +298,7 @@ namespace Log4NetDemo.Appender
         /// 当缓冲区满时，是应该 overwrite，还是 flushed
         /// </summary>
         private bool m_lossy = false;
+
         private ITriggeringEventEvaluator m_evaluator;
         private ITriggeringEventEvaluator m_lossyEvaluator;
 
@@ -343,6 +373,7 @@ namespace Log4NetDemo.Appender
                 else
                 {
                     // Buffer is full and discarding an event
+                    // 缓存区已经满了，返回丢弃的日志事件信息
                     return discardedLoggingEvent;
                 }
             }

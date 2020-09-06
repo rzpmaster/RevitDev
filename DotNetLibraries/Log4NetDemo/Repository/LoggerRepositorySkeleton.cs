@@ -1,11 +1,12 @@
-﻿using Log4NetDemo.Core.Data;
+﻿using System;
+using System.Collections;
+using System.Threading;
+using Log4NetDemo.Core;
+using Log4NetDemo.Core.Data;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.ObjectRenderer;
 using Log4NetDemo.Util;
 using Log4NetDemo.Util.Collections;
-using System;
-using System.Collections;
-using System.Threading;
 
 namespace Log4NetDemo.Repository
 {

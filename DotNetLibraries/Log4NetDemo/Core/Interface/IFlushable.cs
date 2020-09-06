@@ -1,5 +1,8 @@
 ﻿namespace Log4NetDemo.Core.Interface
 {
+    /// <summary>
+    /// Interface that can be implemented by Appenders that buffer logging data and expose a <see cref="Flush"/> method.
+    /// </summary>
     public interface IFlushable
     {
         /// <summary>

@@ -2,7 +2,7 @@
 using Log4NetDemo.Repository;
 using System;
 
-namespace Log4NetDemo.Core.Interface
+namespace Log4NetDemo.Core
 {
     /// <summary>
     /// 具体的一个写某个类型日志的类
