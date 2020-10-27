@@ -1,14 +1,16 @@
-﻿using Log4NetDemo.Core.Data;
+﻿using System;
+using Log4NetDemo.Core.Data;
 using Log4NetDemo.Util;
-using System;
 
 namespace Log4NetDemo.Appender.AppenderAttach
 {
+    /// <summary>
+    /// 实现对 Appender 的增删改查的方法,并公开了将日志消息分发给所有 Appender 的方法.
+    /// </summary>
     public class AppenderAttachedImpl : IAppenderAttachable
     {
         public AppenderAttachedImpl()
         {
-
         }
 
         #region Public Instance Methods
@@ -17,7 +19,7 @@ namespace Log4NetDemo.Appender.AppenderAttach
         /// 循环所有 Appender 记录日志
         /// </summary>
         /// <param name="loggingEvent"></param>
-        /// <returns>返回调用的 Appender 的个数 </returns>
+        /// <returns>返回通知到的 Appender 的个数 (内部维护的 Appender 集合的当前个数)</returns>
         public int AppendLoopOnAppenders(LoggingEvent loggingEvent)
         {
             if (loggingEvent == null)
@@ -92,7 +94,7 @@ namespace Log4NetDemo.Appender.AppenderAttach
         }
 
         /// <summary>
-        /// 调用 Appender 中的方法记录日志
+        /// 调用 Appender 中的 批量处理 日志消息的方法
         /// </summary>
         /// <param name="appender"></param>
         /// <param name="loggingEvents"></param>
@@ -103,6 +105,7 @@ namespace Log4NetDemo.Appender.AppenderAttach
 		/// through using that interface. Otherwise the <see cref="LoggingEvent"/>
 		/// objects in the array will be passed one at a time.
 		/// </para>
+        /// <para>如果能批量处理,就一次批量处理完,如果不支持批量处理,就一个一个处理</para>
 		/// </remarks>
         private static void CallAppend(IAppender appender, LoggingEvent[] loggingEvents)
         {
@@ -215,7 +218,14 @@ namespace Log4NetDemo.Appender.AppenderAttach
 
         #endregion
 
+        /// <summary>
+        /// 内部维护的 Appender 集合
+        /// </summary>
         private AppenderCollection m_appenderList;
+
+        /// <summary>
+        /// 缓存数组,当添加或删除 Appender 时,它需要清空
+        /// </summary>
         private IAppender[] m_appenderArray;
 
         private readonly static Type declaringType = typeof(AppenderAttachedImpl);

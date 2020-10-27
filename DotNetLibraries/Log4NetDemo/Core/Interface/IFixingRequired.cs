@@ -28,9 +28,6 @@ namespace Log4NetDemo.Core.Interface
         /// <returns></returns>
         /// <remarks>
         /// <para>
-        /// 获得一个当前对象的可移植版本实例，使其在任何线程都具有相同的结果
-        /// </para>
-        /// <para>
 		/// Get a portable instance object that represents the current
 		/// state of this object. The portable object can be stored
 		/// and logged from any thread with identical results.

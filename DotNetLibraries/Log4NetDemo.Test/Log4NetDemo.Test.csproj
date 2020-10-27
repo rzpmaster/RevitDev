@@ -48,10 +48,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appender\CategoryTraceListener.cs" />
     <Compile Include="Appender\DebugAppenderTest.cs" />
     <Compile Include="Appender\TraceAppenderTest.cs" />
+    <Compile Include="Configration\ConfigurationMessages.cs" />
+    <Compile Include="Context\LogicalThreadContextTest.cs" />
+    <Compile Include="Context\ThreadContextTest.cs" />
+    <Compile Include="Core\CyclicBufferTest.cs" />
+    <Compile Include="Core\FixingTest.cs" />
+    <Compile Include="Core\ShutdownTest.cs" />
+    <Compile Include="Core\EvaluatorTest.cs" />
+    <Compile Include="Core\StringFormatTest.cs" />
+    <Compile Include="Layout\MessageAsNamePatternConverter.cs" />
+    <Compile Include="Layout\PatternLayoutTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Appender\TestAppender\StringAppender.cs" />
+    <Compile Include="Appender\TestAppender\CountingAppender.cs" />
+    <Compile Include="Repository\Hierarchy\HierarchyTest.cs" />
+    <Compile Include="Repository\Hierarchy\LoggerTest.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Util\LogLogTest.cs" />
+    <Compile Include="Util\PropertiesDictionaryTest.cs" />
     <Compile Include="Util\SystemInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +88,5 @@
       <Name>Log4NetDemo</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

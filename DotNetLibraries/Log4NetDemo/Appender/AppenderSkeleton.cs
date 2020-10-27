@@ -1,12 +1,12 @@
-﻿using Log4NetDemo.Appender.ErrorHandler;
+﻿using System;
+using System.Collections;
+using System.IO;
+using Log4NetDemo.Appender.ErrorHandler;
 using Log4NetDemo.Core.Data;
 using Log4NetDemo.Core.Interface;
 using Log4NetDemo.Filter;
 using Log4NetDemo.Layout;
 using Log4NetDemo.Util;
-using System;
-using System.Collections;
-using System.IO;
 
 namespace Log4NetDemo.Appender
 {
@@ -470,7 +470,7 @@ namespace Log4NetDemo.Appender
         }
 
         /// <summary>
-        /// Called before <see cref="Append(LoggingEvent)"/> as a precondition.(先决条件)
+        /// Called before <see cref="Append(LoggingEvent)"/> as a precondition.(先决条件)(检查 ILayout )
         /// </summary>
         /// <remarks>
         /// <para>
@@ -593,8 +593,8 @@ namespace Log4NetDemo.Appender
         }
 
         /// <summary>
-        /// Tests if this appender requires a <see cref="Layout"/> to be set.
-        /// 标志此 Appender 是否需要设置 <see cref="Layout"/>
+        /// Tests if this appender requires a <see cref="ILayout"/> to be set.
+        /// 标志此 Appender 是否用 <see cref="ILayout"/> 规定的格式格式化输出
         /// </summary>
         /// <remarks>
         /// <para>

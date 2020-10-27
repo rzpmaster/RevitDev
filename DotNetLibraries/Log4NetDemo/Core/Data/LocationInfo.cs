@@ -10,7 +10,7 @@ namespace Log4NetDemo.Core.Data
     /// 表示调用者的堆栈信息的类
     /// </summary>
     /// <remarks>
-    /// release版本,可能会不准确
+    /// <para>release版本,可能会不准确</para>
     /// </remarks>
     [Serializable]
     public class LocationInfo
@@ -96,6 +96,16 @@ namespace Log4NetDemo.Core.Data
                     LogLog.Debug(declaringType, "Security exception while trying to get caller stack frame. Error Ignored. Location Information Not Available.");
                 }
             }
+        }
+
+        public LocationInfo(string className, string methodName, string fileName, string lineNumber)
+        {
+            m_className = className;
+            m_fileName = fileName;
+            m_lineNumber = lineNumber;
+            m_methodName = methodName;
+            m_fullInfo = m_className + '.' + m_methodName + '(' + m_fileName +
+                ':' + m_lineNumber + ')';
         }
 
         public string ClassName

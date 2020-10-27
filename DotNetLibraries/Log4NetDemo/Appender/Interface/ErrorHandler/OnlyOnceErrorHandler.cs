@@ -1,8 +1,15 @@
-﻿using Log4NetDemo.Util;
-using System;
+﻿using System;
+using Log4NetDemo.Util;
 
 namespace Log4NetDemo.Appender.ErrorHandler
 {
+    /// <summary>
+    /// 只处理一个错误
+    /// </summary>
+    /// <remarks>
+    /// <para>使用 内部 LogLog 记录错误消息</para>
+    /// <para>旨在防止别的引用程序配错误消息淹没</para>
+    /// </remarks>
     public class OnlyOnceErrorHandler : IErrorHandler
     {
         public OnlyOnceErrorHandler()
@@ -62,6 +69,7 @@ namespace Log4NetDemo.Appender.ErrorHandler
             m_errorCode = errorCode;
             m_exception = e;
             m_message = message;
+
             m_firstTime = false;
 
             if (LogLog.InternalDebugging && !LogLog.QuietMode)
