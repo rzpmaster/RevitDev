@@ -89,7 +89,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleIocDemo", "DotNetLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleIocDemo.Test", "DotNetLibraries\SimpleIocDemo.Test\SimpleIocDemo.Test.csproj", "{583C11FC-EB53-4F9F-83A6-E5D12EC445FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketDemo.Server", "DotNetLibraries\SocketDemo.Server\SocketDemo.Server.csproj", "{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketDemo.IISServer", "DotNetLibraries\SocketDemo.Server\SocketDemo.IISServer.csproj", "{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
