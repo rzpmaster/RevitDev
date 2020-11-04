@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SocketDemo.Server
+namespace SocketDemo.IISServer
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -29,7 +29,7 @@ namespace SocketDemo.Server
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (hasStart)
             {
@@ -57,8 +57,8 @@ namespace SocketDemo.Server
             // 监听最大长度
             listenSocket.Listen(10);
 
-            Task.Factory.StartNew(
-                    () =>
+            await Task.Factory.StartNew(
+                    async () =>
                     {
                         while (hasStart)
                         {
@@ -67,7 +67,20 @@ namespace SocketDemo.Server
 
                             UpdateInfo($"{newSocket.RemoteEndPoint}已连接！\r\n");
                             HttpApplication application = new HttpApplication(newSocket, UpdateInfo);
+
+                            //await Task.Factory.StartNew(
+                            //    (state) =>
+                            //    {
+
+                            //    }, newSocket);
+
+                            await Task.Run(() =>
+                            {
+                                //newSocket.Receive();
+                            });
                         }
+
+                        listenSocket.Dispose();
                     }
                     );
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SocketDemo.Server
+namespace SocketDemo.IISServer
 {
     public class HttpRequest
     {
