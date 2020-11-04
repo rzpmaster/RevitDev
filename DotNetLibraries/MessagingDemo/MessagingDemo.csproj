@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ACDE0296-9AC7-4932-B74D-6F139871C4F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MessagingDemo</RootNamespace>
+    <AssemblyName>MessagingDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\IExecuteWithObject.cs" />
+    <Compile Include="Common\IExecuteWithObjectAndResult.cs" />
+    <Compile Include="Common\WeakAction.cs" />
+    <Compile Include="Common\WeakActionGeneric.cs" />
+    <Compile Include="Common\WeakFunc.cs" />
+    <Compile Include="Common\WeakFuncGeneric.cs" />
+    <Compile Include="IMessenger.cs" />
+    <Compile Include="Message\GenericMessage.cs" />
+    <Compile Include="Message\MessageBase.cs" />
+    <Compile Include="Message\MessageImpl\NotificationMessage.cs" />
+    <Compile Include="Message\MessageImpl\NotificationMessageAction.cs" />
+    <Compile Include="Message\MessageImpl\NotificationMessageActionGeneric.cs" />
+    <Compile Include="Message\MessageImpl\NotificationMessageGeneric.cs" />
+    <Compile Include="Message\MessageImpl\NotificationMessageWithCallback.cs" />
+    <Compile Include="Message\MessageImpl\PropertyChangedMessage.cs" />
+    <Compile Include="Message\MessageImpl\PropertyChangedMessageBase.cs" />
+    <Compile Include="Messenger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

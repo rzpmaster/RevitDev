@@ -91,6 +91,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleIocDemo.Test", "DotNe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketDemo.IISServer", "DotNetLibraries\SocketDemo.Server\SocketDemo.IISServer.csproj", "{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingDemo", "DotNetLibraries\MessagingDemo\MessagingDemo.csproj", "{ACDE0296-9AC7-4932-B74D-6F139871C4F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingDemo.Test", "DotNetLibraries\MessagingDemo.Test\MessagingDemo.Test.csproj", "{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +229,14 @@ Global
 		{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDE0296-9AC7-4932-B74D-6F139871C4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDE0296-9AC7-4932-B74D-6F139871C4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDE0296-9AC7-4932-B74D-6F139871C4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDE0296-9AC7-4932-B74D-6F139871C4F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -272,6 +284,8 @@ Global
 		{6DEB390F-5EFF-4BE8-A258-744116D9EB5C} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{583C11FC-EB53-4F9F-83A6-E5D12EC445FA} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{483CAFA2-A5D6-4CC6-A7B2-E2AF49F73FEC} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
+		{ACDE0296-9AC7-4932-B74D-6F139871C4F2} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
+		{6C96BB00-A4BD-4E3A-A16F-3EB92C23DC7E} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}
