@@ -213,7 +213,7 @@ namespace MessagingDemo
         }
 
         /// <summary>
-        /// 扫描收件人列表,并清除
+        /// 清除扫描收件人列表，并恢复至最初状态
         /// </summary>
         public void Cleanup()
         {
