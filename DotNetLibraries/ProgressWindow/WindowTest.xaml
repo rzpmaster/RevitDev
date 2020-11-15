@@ -1,0 +1,36 @@
+﻿<Window x:Class="ProgressWindow.WindowTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:custom="clr-namespace:ProgressWindow.CustomControls.OdysseyExpander" 
+        mc:Ignorable="d"
+        Title="WindowTest" Height="450" Width="800">
+    <StackPanel>
+        <custom:OdcExpander Margin="0 10" Header="详细信息" IsExpanded="False" 
+                                    HeaderBackground="WhiteSmoke" BorderBrush="WhiteSmoke" HeaderBorderBrush="WhiteSmoke" Background="WhiteSmoke">
+            <Grid>
+                <ListBox Height="150" ItemsSource="{Binding DetailMesg}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </custom:OdcExpander>
+        <!--<MyExpander:OdcExpander Margin="0 10" Header="详细信息" IsExpanded="False" 
+                                    HeaderBackground="WhiteSmoke" BorderBrush="WhiteSmoke" HeaderBorderBrush="WhiteSmoke" Background="WhiteSmoke">
+            <Grid>
+                <ListBox Height="150" ItemsSource="{Binding DetailMesg}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </MyExpander:OdcExpander>-->
+
+    </StackPanel>
+</Window>

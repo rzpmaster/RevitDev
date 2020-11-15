@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Generic.Expander.xaml"/>
+        <ResourceDictionary Source="Generic.ExpandHeader.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>
