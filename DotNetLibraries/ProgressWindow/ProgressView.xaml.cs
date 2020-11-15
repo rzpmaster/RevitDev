@@ -69,13 +69,13 @@ namespace ProgressWindow
                     this.Close();
                 }
 
-                if (msg.StartsWith(ConstData.Process_HeaderTag))
+                else if (msg.StartsWith(ConstData.Process_HeaderTag))
                 { // 设置进度窗口标题
-                    msg = msg.Substring(ConstData.Process_HeaderTag.Length + 1);
+                    msg = msg.Substring(ConstData.Process_HeaderTag.Length);
                     this.Title = String.Format("{0} - {1}", ConstData.Titlt_main, msg);
                 }
 
-                if (msg.StartsWith(ConstData.Position_HeaderTag))
+                else if (msg.StartsWith(ConstData.Position_HeaderTag))
                 { // 设置进度窗口位置
                     msg = msg.Substring(ConstData.Position_HeaderTag.Length);
                     var strs = msg.Split('_');
@@ -89,28 +89,31 @@ namespace ProgressWindow
                     this.Top = py;
                 }
 
-
-                if (msg.StartsWith(ConstData.MainIteration_Count))
+                else if (msg.StartsWith(ConstData.MainIteration_Count))
                 { // 设置 主进度 循环总次数
                     msg = msg.Substring(ConstData.MainIteration_Count.Length);
                     mainModel.MainProgress.TotalNum = Double.Parse(msg);
                 }
+
                 else if (msg.StartsWith(ConstData.SubIteration_Count))
                 { // 更新 子进度 循环总次数
                     msg = msg.Substring(ConstData.SubIteration_Count.Length);
                     mainModel.SubProgress.TotalNum = Double.Parse(msg);
                     mainModel.SubProgress.CurrentNum = 0; // 初始化 子进度 当前进度值为 0
                 }
+
                 else if (msg.StartsWith(ConstData.MainTip_Info))
                 { // 更新主进度提示信息
                     msg = msg.Substring(ConstData.MainTip_Info.Length);
                     mainModel.MainProgress.MainTip = msg;
                 }
+
                 else if (msg.StartsWith(ConstData.SubTip_Info))
                 { // 更新子进度提示信息
                     msg = msg.Substring(ConstData.SubTip_Info.Length);
                     mainModel.SubProgress.MainTip = msg;
                 }
+
                 else if (msg.StartsWith(ConstData.Detail_Info))
                 { // 更新 详细信息
                     msg = msg.Substring(ConstData.Detail_Info.Length);
@@ -119,18 +122,20 @@ namespace ProgressWindow
                     // mainModel.DetailText = msg;
                     this.DetailMesgListBox.ScrollIntoView(DetailMesgListBox.Items[DetailMesgListBox.Items.Count - 1]);
                 }
+
                 else if (msg.StartsWith(ConstData.UpdateProgress_Info))
                 { // 更新进度条状态
-                    mainModel.MainProgress.CurrentNum++;
-                    mainModel.SubProgress.CurrentNum++;
-                    if (mainModel.MainProgress.TotalNum == mainModel.MainProgress.CurrentNum)
-                    {
-                        mainModel.StopTimer();
-                        mainModel.MainProgress.RemainTime = new TimeSpan(0, 0, 0);
-                        mainModel.SubProgress.RemainTime = new TimeSpan(0, 0, 0);
-                        this.Close();
-                    }
+                    //mainModel.MainProgress.CurrentNum++;
+                    //mainModel.SubProgress.CurrentNum++;
+                    //if (mainModel.MainProgress.TotalNum == mainModel.MainProgress.CurrentNum)
+                    //{
+                    //    mainModel.StopTimer();
+                    //    mainModel.MainProgress.RemainTime = new TimeSpan(0, 0, 0);
+                    //    mainModel.SubProgress.RemainTime = new TimeSpan(0, 0, 0);
+                    //    this.Close();
+                    //}
                 }
+
                 else if (msg.StartsWith(ConstData.UpdateMainProgress))
                 { // 更新 主进度条 比例
                     msg = msg.Substring(ConstData.UpdateMainProgress.Length);
@@ -145,11 +150,13 @@ namespace ProgressWindow
                         this.CancelButton.IsEnabled = false;
                     }
                 }
+
                 else if (msg.StartsWith(ConstData.UpdateSubProgress))
                 { // 更新 子进度条 比例
                     msg = msg.Substring(ConstData.UpdateSubProgress.Length);
                     mainModel.SubProgress.Rate = Math.Round(Double.Parse(msg), 2);
                 }
+
             }
             catch (Exception ex)
             {

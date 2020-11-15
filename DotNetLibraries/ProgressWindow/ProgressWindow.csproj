@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ProgressWindow.App</StartupObject>
+    <StartupObject>ProgressWindow.MainApp</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -12,58 +12,45 @@ namespace ProgressWindow.Test
     {
         static void Main(string[] args)
         {
-            //using (ProgressInvoker progressInvoker = new ProgressInvoker(true))
+            /// 简单进度条
+            /// 
+
+            using (ProgressInvoker progressInvoker = new ProgressInvoker(true))
+            {
+                progressInvoker.LaunchProgressWindow();
+                progressInvoker.SetupTitle("Title...");
+                progressInvoker.UpdateMainTipInfo("test...");
+
+                // 耗时代码...
+            }
+
+            /// 复杂进度条
+            /// 
+
+            //ProgressInvoker progressInvoker = new ProgressInvoker();
+            ////progressInvoker.OwnerPtrNum=0;
+            //progressInvoker.LaunchProgressWindow();
+            //progressInvoker.SetupTitle("干嘛鸭？");
+            //progressInvoker.SetupProgressWindowPosition(new Point(0, 0));
+
+            //int mainCount = 4;
+            //int subCount = 1000;
+
+            ////progressInvoker.SetMainProgressCount(1);
+            //for (int i = 0; i < mainCount; i++)
             //{
-            //    progressInvoker.LaunchProgressWindow();
-            //    progressInvoker.UpdateMainTipInfo("test..."); 
+            //    progressInvoker.UpdateMainTipInfo($"想你鸭~~第{i + 1}轮想你，进行中...");
+
+            //    //progressInvoker.SetSubProgressCount(1);
+            //    for (int j = 0; j < subCount; j++)
+            //    {
+            //        progressInvoker.UpdateDetailInfo($"第{i + 1}轮，第{j + 1}次想你");
+            //        progressInvoker.UpdateSubTipInfo($"第{i + 1}轮，第{j + 1}次想你");
+            //        progressInvoker.UpdateSubProgress((j + 1) / 1.0 / subCount * 1.0);
+            //    }
+
+            //    progressInvoker.UpdateMainProgress((i + 1) / 1.0 / mainCount * 1.0);
             //}
-
-            ProgressInvoker progressInvoke = new ProgressInvoker();
-            progressInvoke.LaunchProgressWindow();
-
-            int count = 1000;
-
-            progressInvoke.UpdateMainTipInfo("干嘛鸭?");
-            progressInvoke.SetSubProgressCount(1);
-            for (int i = 0; i < count; i++)
-            {
-                progressInvoke.StartOneIteration($"第{i}次想你~~");
-                progressInvoke.UpdateDetailInfo($"1*第{i}次想你~~");
-                progressInvoke.UpdateSubProgress((double)i / count);
-            }
-            progressInvoke.UpdateMainProgress(0.25);
-
-            progressInvoke.UpdateMainTipInfo("干嘛鸭?");
-            progressInvoke.SetSubProgressCount(1);
-            for (int i = 0; i < count; i++)
-            {
-                progressInvoke.StartOneIteration($"第{i}次想你~~");
-                progressInvoke.UpdateDetailInfo($"2*第{i}次想你~~");
-                progressInvoke.UpdateSubProgress((double)i / count);
-            }
-            progressInvoke.UpdateMainProgress(0.5);
-
-            progressInvoke.UpdateMainTipInfo("干嘛鸭?");
-            progressInvoke.SetSubProgressCount(1);
-            for (int i = 0; i < count; i++)
-            {
-                progressInvoke.StartOneIteration($"第{i}次想你~~");
-                progressInvoke.UpdateDetailInfo($"3*第{i}次想你~~");
-                progressInvoke.UpdateSubProgress((double)i / count);
-            }
-            progressInvoke.UpdateMainProgress(0.75);
-
-            progressInvoke.UpdateMainTipInfo("干嘛鸭?");
-            progressInvoke.SetSubProgressCount(1);
-            for (int i = 0; i < count; i++)
-            {
-                progressInvoke.StartOneIteration($"第{i}次想你~~");
-                progressInvoke.UpdateDetailInfo($"4*第{i}次想你~~");
-                progressInvoke.UpdateSubProgress((double)i / count);
-            }
-            progressInvoke.UpdateMainProgress(1);
-
-            progressInvoke.StartOneIteration($"第{count*4}次想你,想你完成~~");
 
             Console.ReadLine();
         }

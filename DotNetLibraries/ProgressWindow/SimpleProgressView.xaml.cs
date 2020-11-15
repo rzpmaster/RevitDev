@@ -67,13 +67,13 @@ namespace ProgressWindow
                     this.Close();
                 }
 
-                if (msg.StartsWith(ConstData.Process_HeaderTag))
+                else if (msg.StartsWith(ConstData.Process_HeaderTag))
                 { // 设置进度窗口标题
-                    msg = msg.Substring(ConstData.Process_HeaderTag.Length + 1);
+                    msg = msg.Substring(ConstData.Process_HeaderTag.Length);
                     this.Title = String.Format("{0} - {1}", ConstData.Titlt_main, msg);
                 }
 
-                if (msg.StartsWith(ConstData.Position_HeaderTag))
+                else if (msg.StartsWith(ConstData.Position_HeaderTag))
                 { // 设置进度窗口位置
                     msg = msg.Substring(ConstData.Position_HeaderTag.Length);
                     var strs = msg.Split('_');
@@ -87,11 +87,12 @@ namespace ProgressWindow
                     this.Top = py;
                 }
 
-                if (msg.StartsWith(ConstData.MainTip_Info))
+                else if (msg.StartsWith(ConstData.MainTip_Info))
                 { // 更新主进度提示信息
                     msg = msg.Substring(ConstData.MainTip_Info.Length);
                     mainModel.MainText = msg;
                 }
+
             }
             catch (Exception ex)
             {

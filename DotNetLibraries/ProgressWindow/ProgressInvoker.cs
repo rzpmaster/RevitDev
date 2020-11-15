@@ -149,7 +149,7 @@ namespace ProgressWindow
         /// <param name="win_Title"></param>
         public void SetupTitle(string win_Title)
         {
-            SendMessageAsync(ConstData.Titlt_main + win_Title);
+            SendMessageAsync(ConstData.Process_HeaderTag + win_Title);
         }
 
         /// <summary>
@@ -162,15 +162,6 @@ namespace ProgressWindow
         }
 
         #region Operate Complete ProgressView
-
-        /// <summary>
-        /// 开始一个子任务
-        /// </summary>
-        /// <param name="subTipMesg"></param>
-        public void StartOneIteration(string subTipMesg)
-        {
-            SendMessageAsync(ConstData.SubTip_Info + subTipMesg);
-        }
 
         /// <summary>
         /// 更新主提示
@@ -197,6 +188,11 @@ namespace ProgressWindow
         public void UpdateMainProgress(double mainRate)
         {
             SendMessageAsync(ConstData.UpdateMainProgress + mainRate.ToString());
+        }
+
+        public void UpdateSubTipInfo(string subTipMesg)
+        {
+            SendMessageAsync(ConstData.SubTip_Info + subTipMesg);
         }
 
         /// <summary>
@@ -226,6 +222,17 @@ namespace ProgressWindow
             SendMessageAsync(ConstData.Detail_Info + detailInfo);
         }
 
+        #endregion
+
+        /// <summary>
+        /// 开始一个子任务
+        /// </summary>
+        /// <param name="subTipMesg"></param>
+        public void StartOneIteration(string subTipMesg)
+        {
+            SendMessageAsync(ConstData.SubTip_Info + subTipMesg);
+        }
+
         /// <summary>
         /// 结束一个子任务
         /// </summary>
@@ -236,8 +243,6 @@ namespace ProgressWindow
 
             return IsCancelled;
         }
-
-        #endregion
 
         #endregion
 
