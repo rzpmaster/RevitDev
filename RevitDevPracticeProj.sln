@@ -101,6 +101,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressWindow.Test", "DotN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DotNetLibraries\DependencyInjection\DependencyInjection.csproj", "{1DCC960C-EFA2-41FD-B5E8-D721CBD32CED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection.Test", "DotNetLibraries\DependencyInjection.Test\DependencyInjection.Test.csproj", "{C6BB025E-37AB-49CF-A508-0009DEA343A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,10 @@ Global
 		{1DCC960C-EFA2-41FD-B5E8-D721CBD32CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCC960C-EFA2-41FD-B5E8-D721CBD32CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCC960C-EFA2-41FD-B5E8-D721CBD32CED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6BB025E-37AB-49CF-A508-0009DEA343A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6BB025E-37AB-49CF-A508-0009DEA343A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6BB025E-37AB-49CF-A508-0009DEA343A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6BB025E-37AB-49CF-A508-0009DEA343A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -307,6 +313,7 @@ Global
 		{814E94C1-38AF-49E6-827C-5F895D5D59F3} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{0157C5CA-A909-4FB1-B38A-0AD28ECB0C7F} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 		{1DCC960C-EFA2-41FD-B5E8-D721CBD32CED} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
+		{C6BB025E-37AB-49CF-A508-0009DEA343A9} = {80356263-4093-4D3C-9EB9-F41BE93156A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D338482-3070-47EB-AECB-9200B5C008A0}

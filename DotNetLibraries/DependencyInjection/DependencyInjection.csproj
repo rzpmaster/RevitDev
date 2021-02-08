@@ -93,6 +93,7 @@
     <Compile Include="ServiceLookup\CallSite\StackGuard.cs" />
     <Compile Include="ServiceProvider.cs" />
     <Compile Include="ServiceProviderOptions.cs" />
+    <Compile Include="Tools\ActivatorUtilities.cs" />
     <Compile Include="Tools\ParameterDefaultValue.cs" />
     <Compile Include="Tools\ThrowHelper.cs" />
     <Compile Include="Tools\TypeNameHelper.cs" />
