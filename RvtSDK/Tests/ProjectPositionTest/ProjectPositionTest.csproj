@@ -53,4 +53,5 @@
     <None Include="Revit坐标转化.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)RvtSDK\VSProps\warning.targets" />
 </Project>
