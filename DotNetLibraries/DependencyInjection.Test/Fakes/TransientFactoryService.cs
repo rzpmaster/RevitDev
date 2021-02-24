@@ -3,7 +3,10 @@
 
 namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
-    public interface IFakeService
+    public class TransientFactoryService : IFactoryService
     {
+        public IFakeService FakeService { get; set; }
+
+        public int Value { get; set; }
     }
 }

@@ -3,7 +3,13 @@
 
 namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
-    public interface IFakeService
+    public interface IFakeEveryService :
+        IFakeService,
+        IFakeMultipleService,
+        IFakeScopedService,
+        IFakeServiceInstance,
+        IFakeSingletonService,
+        IFakeOpenGenericService<PocoClass>
     {
     }
 }

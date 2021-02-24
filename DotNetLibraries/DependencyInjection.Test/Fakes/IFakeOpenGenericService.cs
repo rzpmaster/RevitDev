@@ -3,7 +3,8 @@
 
 namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
-    public interface IFakeService
+    public interface IFakeOpenGenericService<TValue>
     {
+        TValue Value { get; }
     }
 }

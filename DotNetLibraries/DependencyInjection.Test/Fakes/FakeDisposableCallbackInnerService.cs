@@ -3,7 +3,10 @@
 
 namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
-    public interface IFakeService
+    public class FakeDisposableCallbackInnerService : FakeDisposableCallbackService, IFakeMultipleService
     {
+        public FakeDisposableCallbackInnerService(FakeDisposeCallback callback) : base(callback)
+        {
+        }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// Copyright (c) .NET Foundation. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-namespace DependencyInjection.Test.Fakes
+using System;
+
+namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
     public class FakeService : IFakeEveryService, IDisposable
     {
@@ -21,34 +20,5 @@ namespace DependencyInjection.Test.Fakes
 
             Disposed = true;
         }
-    }
-
-    public class FakeTwoMultipleService : IFakeMultipleService
-    {
-    }
-
-    public class FakeOuterService : IFakeOuterService
-    {
-        public FakeOuterService(
-            IFakeService singleService,
-            IEnumerable<IFakeMultipleService> multipleServices)
-        {
-            SingleService = singleService;
-            MultipleServices = multipleServices;
-        }
-
-        public IFakeService SingleService { get; }
-
-        public IEnumerable<IFakeMultipleService> MultipleServices { get; }
-    }
-
-    public class FakeOpenGenericService<TVal> : IFakeOpenGenericService<TVal>
-    {
-        public FakeOpenGenericService(TVal value)
-        {
-            Value = value;
-        }
-
-        public TVal Value { get; }
     }
 }

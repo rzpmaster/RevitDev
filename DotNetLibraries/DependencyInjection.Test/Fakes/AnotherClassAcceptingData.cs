@@ -3,13 +3,19 @@
 
 namespace Microsoft.Extensions.DependencyInjection.Specification.Fakes
 {
-    public class AnotherClass
+    public class AnotherClassAcceptingData
     {
-        public AnotherClass(IFakeService fakeService)
+        public AnotherClassAcceptingData(IFakeService fakeService, string one, string two)
         {
             FakeService = fakeService;
+            One = one;
+            Two = two;
         }
 
         public IFakeService FakeService { get; }
+
+        public string One { get; }
+
+        public string Two { get; }
     }
 }
